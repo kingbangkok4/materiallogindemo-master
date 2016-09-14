@@ -2,7 +2,7 @@
     <string name="app_name">Join Way</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="url">http://172.22.26.147:9999/joinway_web/source/</string>
+    <string name="url">http://172.22.26.147:9999/joinway_web/source/mobile/</string>
     <!--<string name="action_settings">Settings</string>-->
     <string name="test"></string>
 </resources>

@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText txtUser = (EditText)findViewById(R.id.input_email);
         final EditText txtPass = (EditText)findViewById(R.id.input_password);
        /* String url = "http://172.19.43.65/joinway/checklogin.php";*/
-        String url = getString(R.string.url)+"/checklogin.php";
+        String url = getString(R.string.url)+"checklogin.php";
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("strUser", txtUser.getText().toString()));
         params.add(new BasicNameValuePair("strPass", txtPass.getText().toString()));
