@@ -227,7 +227,7 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button8"
+        android:id="@+id/btnSave"
         android:background="@drawable/green"
         android:layout_marginBottom="23dp"
         android:layout_alignParentBottom="true"
@@ -237,7 +237,7 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button9"
+        android:id="@+id/btnCancel"
         android:background="@drawable/close"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/txtTime"
