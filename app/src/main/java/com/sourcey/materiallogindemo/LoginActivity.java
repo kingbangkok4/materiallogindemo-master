@@ -1,16 +1,14 @@
 package com.sourcey.materiallogindemo;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -33,8 +31,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -106,7 +104,8 @@ public class LoginActivity extends AppCompatActivity {
     public  boolean check(){
         final EditText txtUser = (EditText)findViewById(R.id.input_email);
         final EditText txtPass = (EditText)findViewById(R.id.input_password);
-        String url = "http://172.19.43.65/joinway/checklogin.php";
+       /* String url = "http://172.19.43.65/joinway/checklogin.php";*/
+        String url = getString(R.string.url)+"/checklogin.php";
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("strUser", txtUser.getText().toString()));
         params.add(new BasicNameValuePair("strPass", txtPass.getText().toString()));
