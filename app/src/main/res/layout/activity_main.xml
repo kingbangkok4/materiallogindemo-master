@@ -73,8 +73,8 @@
         android:layout_marginTop="29dp"
         android:textColor="#040404"
         android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/button4"
-        android:layout_toEndOf="@+id/button4" />
+        android:layout_toRightOf="@+id/btnPost"
+        android:layout_toEndOf="@+id/btnPost" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button4"
+        android:id="@+id/btnPost"
         android:background="@drawable/post"
         android:layout_above="@+id/textView8"
         android:layout_alignLeft="@+id/button2"
@@ -135,7 +135,7 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button5"
+        android:id="@+id/btnFeed"
         android:background="@drawable/feed"
         android:layout_above="@+id/textView8"
         android:layout_toLeftOf="@+id/textView7"
@@ -169,9 +169,9 @@
         android:text="End (ปลายทาง)"
         android:id="@+id/textView12"
         android:textColor="#040404"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
+        android:layout_below="@+id/txtStart"
+        android:layout_alignLeft="@+id/txtStart"
+        android:layout_alignStart="@+id/txtStart"
         android:layout_marginTop="5dp" />
 
     <TextView
@@ -181,8 +181,8 @@
         android:id="@+id/textView14"
         android:textColor="#040404"
         android:layout_below="@+id/button7"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
+        android:layout_alignLeft="@+id/txtEnd"
+        android:layout_alignStart="@+id/txtEnd"
         android:layout_marginTop="5dp" />
 
     <TextView
@@ -240,13 +240,13 @@
         android:id="@+id/button9"
         android:background="@drawable/close"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/editText4"
-        android:layout_alignEnd="@+id/editText4" />
+        android:layout_alignRight="@+id/txtTime"
+        android:layout_alignEnd="@+id/txtTime" />
 
     <EditText
         android:layout_width="40dp"
         android:layout_height="30dp"
-        android:id="@+id/editText"
+        android:id="@+id/txtStart"
         android:layout_below="@+id/textView10"
         android:layout_alignLeft="@+id/textView10"
         android:layout_alignStart="@+id/textView10"
@@ -259,7 +259,7 @@
     <EditText
         android:layout_width="40dp"
         android:layout_height="30dp"
-        android:id="@+id/editText2"
+        android:id="@+id/txtEnd"
         android:background="#ffffff"
         android:layout_alignBottom="@+id/button7"
         android:layout_alignLeft="@+id/textView12"
@@ -271,13 +271,13 @@
     <EditText
         android:layout_width="40dp"
         android:layout_height="30dp"
-        android:id="@+id/editText3"
+        android:id="@+id/txtAppoint"
         android:background="#ffffff"
         android:layout_below="@+id/textView14"
         android:layout_alignLeft="@+id/textView14"
         android:layout_alignStart="@+id/textView14"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2"
+        android:layout_alignRight="@+id/txtEnd"
+        android:layout_alignEnd="@+id/txtEnd"
         android:layout_marginTop="5dp"
         android:textColor="#030303" />
 
@@ -285,9 +285,9 @@
         android:layout_width="wrap_content"
         android:id="@+id/radioButtong"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editText3"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_alignStart="@+id/button5">
+        android:layout_alignTop="@+id/txtAppoint"
+        android:layout_alignLeft="@+id/btnFeed"
+        android:layout_alignStart="@+id/btnFeed">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -297,7 +297,8 @@
             android:textColor="#040404"
             android:layout_below="@+id/textView14"
             android:layout_alignRight="@+id/button7"
-            android:layout_alignEnd="@+id/button7" />
+            android:layout_alignEnd="@+id/button7"
+            android:checked="true" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -307,13 +308,14 @@
             android:layout_below="@+id/radioButton"
             android:layout_alignLeft="@+id/radioButton"
             android:layout_alignStart="@+id/radioButton"
-            android:textColor="#030303" />
+            android:textColor="#030303"
+            android:checked="false" />
     </RadioGroup>
 
     <EditText
         android:layout_width="40dp"
         android:layout_height="30dp"
-        android:id="@+id/editText4"
+        android:id="@+id/txtTime"
         android:background="#ffffff"
         android:textColor="#030303"
         android:layout_below="@+id/textView16"
@@ -326,14 +328,14 @@
     <EditText
         android:layout_width="40dp"
         android:layout_height="30dp"
-        android:id="@+id/editText9"
+        android:id="@+id/txtLicensePlate"
         android:background="#ffffff"
         android:textColor="#030303"
         android:layout_below="@+id/textView18"
         android:layout_alignLeft="@+id/textView18"
         android:layout_alignStart="@+id/textView18"
-        android:layout_alignRight="@+id/editText4"
-        android:layout_alignEnd="@+id/editText4"
+        android:layout_alignRight="@+id/txtTime"
+        android:layout_alignEnd="@+id/txtTime"
         android:layout_marginTop="5dp" />
 
     <TextView
@@ -342,9 +344,9 @@
         android:text="Map"
         android:id="@+id/textView54"
         android:textColor="#040404"
-        android:layout_below="@+id/editText9"
-        android:layout_alignLeft="@+id/editText9"
-        android:layout_alignStart="@+id/editText9"
+        android:layout_below="@+id/txtLicensePlate"
+        android:layout_alignLeft="@+id/txtLicensePlate"
+        android:layout_alignStart="@+id/txtLicensePlate"
         android:layout_marginTop="5dp" />
 
 

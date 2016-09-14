@@ -24,7 +24,7 @@ public class post extends ActionBarActivity {
             }
         });
 
-        final Button btn2 = (Button) findViewById(R.id.button4);
+        final Button btn2 = (Button) findViewById(R.id.btnPost);
         btn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent newActivity = new Intent(post.this, MainActivity.class);

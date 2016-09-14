@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -35,11 +34,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText start = (EditText) findViewById(R.id.editText);
-        final EditText end = (EditText) findViewById(R.id.editText2);
-        final EditText point = (EditText) findViewById(R.id.editText3);
-        final EditText time = (EditText) findViewById(R.id.editText4);
-        final EditText license = (EditText) findViewById(R.id.editText9);
+        final EditText start = (EditText) findViewById(R.id.txtStart);
+        final EditText end = (EditText) findViewById(R.id.txtEnd);
+        final EditText point = (EditText) findViewById(R.id.txtAppoint);
+        final EditText time = (EditText) findViewById(R.id.txtTime);
+        final EditText license = (EditText) findViewById(R.id.txtLicensePlate);
 
         final Button btn9 = (Button) findViewById(R.id.button9);
         btn9.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +60,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        final Button btn2 = (Button) findViewById(R.id.button5);
+        final Button btn2 = (Button) findViewById(R.id.btnFeed);
         btn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent newActivity = new Intent(MainActivity.this, post.class);
