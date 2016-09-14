@@ -1,0 +1,352 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg"
+    android:fitsSystemWindows="true">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/bg">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#fffefe"
+        android:background="#f1e41206" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifications"
+        android:id="@+id/textView3"
+        android:layout_marginLeft="41dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_marginTop="22dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/textView4"
+        android:textStyle="bold"
+        android:layout_marginRight="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setting"
+        android:id="@+id/textView5"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post"
+        android:id="@+id/textView6"
+        android:textStyle="bold"
+        android:layout_marginTop="29dp"
+        android:textColor="#040404"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/button4"
+        android:layout_toEndOf="@+id/button4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feed"
+        android:id="@+id/textView7"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/textView6"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4"
+        android:textColor="#040404" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/textView8"
+        android:background="@drawable/user"
+        android:layout_below="@+id/textView6"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/button"
+        android:background="@drawable/nat"
+        android:layout_alignTop="@+id/button2"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_alignEnd="@+id/textView8" />
+
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button2"
+        android:background="@drawable/setting"
+        android:layout_above="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button3"
+        android:background="@drawable/log"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button4"
+        android:background="@drawable/post"
+        android:layout_above="@+id/textView8"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button5"
+        android:background="@drawable/feed"
+        android:layout_above="@+id/textView8"
+        android:layout_toLeftOf="@+id/textView7"
+        android:layout_toStartOf="@+id/textView7" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ชื่อ - นามสกุล"
+        android:id="@+id/textView9"
+        android:textStyle="bold"
+        android:textColor="#040404"
+        android:layout_marginBottom="20dp"
+        android:layout_alignBottom="@+id/textView8"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start (ต้นทาง)"
+        android:id="@+id/textView10"
+        android:layout_marginTop="10dp"
+        android:textColor="#040404"
+        android:layout_below="@+id/textView8"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_alignStart="@+id/textView8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End (ปลายทาง)"
+        android:id="@+id/textView12"
+        android:textColor="#040404"
+        android:layout_below="@+id/editText"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="จุดนัดพบ"
+        android:id="@+id/textView14"
+        android:textColor="#040404"
+        android:layout_below="@+id/button7"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:id="@+id/textView16"
+        android:textColor="#040404"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/textView14"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button6"
+        android:background="@drawable/search"
+        android:layout_above="@+id/textView12"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button7"
+        android:background="@drawable/ccar"
+        android:layout_alignLeft="@+id/button6"
+        android:layout_alignStart="@+id/button6"
+        android:layout_below="@+id/textView12" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="License Plate"
+        android:id="@+id/textView18"
+        android:textColor="#040404"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/textView16"
+        android:layout_alignLeft="@+id/textView14" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button8"
+        android:background="@drawable/green"
+        android:layout_marginBottom="23dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/textView9"
+        android:layout_alignStart="@+id/textView9" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button9"
+        android:background="@drawable/close"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/editText4"
+        android:layout_alignEnd="@+id/editText4" />
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:id="@+id/editText"
+        android:layout_below="@+id/textView10"
+        android:layout_alignLeft="@+id/textView10"
+        android:layout_alignStart="@+id/textView10"
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:textColor="#030303" />
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:id="@+id/editText2"
+        android:background="#ffffff"
+        android:layout_alignBottom="@+id/button7"
+        android:layout_alignLeft="@+id/textView12"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6"
+        android:textColor="#030303" />
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:id="@+id/editText3"
+        android:background="#ffffff"
+        android:layout_below="@+id/textView14"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_alignEnd="@+id/editText2"
+        android:layout_marginTop="5dp"
+        android:textColor="#030303" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:id="@+id/radioButtong"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/editText3"
+        android:layout_alignLeft="@+id/button5"
+        android:layout_alignStart="@+id/button5">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="มีรถ"
+            android:id="@+id/radioButton"
+            android:textColor="#040404"
+            android:layout_below="@+id/textView14"
+            android:layout_alignRight="@+id/button7"
+            android:layout_alignEnd="@+id/button7" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ไม่มีรถ"
+            android:id="@+id/radioButton2"
+            android:layout_below="@+id/radioButton"
+            android:layout_alignLeft="@+id/radioButton"
+            android:layout_alignStart="@+id/radioButton"
+            android:textColor="#030303" />
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:id="@+id/editText4"
+        android:background="#ffffff"
+        android:textColor="#030303"
+        android:layout_below="@+id/textView16"
+        android:layout_alignLeft="@+id/textView16"
+        android:layout_alignStart="@+id/textView16"
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6"
+        android:layout_marginTop="5dp" />
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:id="@+id/editText9"
+        android:background="#ffffff"
+        android:textColor="#030303"
+        android:layout_below="@+id/textView18"
+        android:layout_alignLeft="@+id/textView18"
+        android:layout_alignStart="@+id/textView18"
+        android:layout_alignRight="@+id/editText4"
+        android:layout_alignEnd="@+id/editText4"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Map"
+        android:id="@+id/textView54"
+        android:textColor="#040404"
+        android:layout_below="@+id/editText9"
+        android:layout_alignLeft="@+id/editText9"
+        android:layout_alignStart="@+id/editText9"
+        android:layout_marginTop="5dp" />
+
+
+</RelativeLayout>
+</ScrollView>

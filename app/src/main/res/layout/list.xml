@@ -1,0 +1,193 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/bg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#fffefe"
+        android:background="#f1e41206" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifications"
+        android:id="@+id/textView3"
+        android:layout_marginLeft="41dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_marginTop="22dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/textView4"
+        android:textStyle="bold"
+        android:layout_marginRight="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setting"
+        android:id="@+id/textView5"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/textView8"
+        android:background="@drawable/user"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginTop="26dp" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/button"
+        android:background="@drawable/nat"
+        android:focusableInTouchMode="false"
+        android:layout_alignTop="@+id/button2"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_alignEnd="@+id/textView8" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button2"
+        android:background="@drawable/setting"
+        android:layout_above="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button3"
+        android:background="@drawable/log"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ชื่อ - นามสกุล"
+        android:id="@+id/textView9"
+        android:textStyle="bold"
+        android:textColor="#040404"
+        android:layout_marginBottom="20dp"
+        android:layout_alignBottom="@+id/textView8"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/textView49"
+        android:background="@drawable/user"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/textView9"
+        android:layout_toRightOf="@+id/textView8"
+        android:layout_toEndOf="@+id/textView8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ชื่อ - นามสกุล"
+        android:id="@+id/textView50"
+        android:textStyle="bold"
+        android:textColor="#040404"
+        android:layout_alignBottom="@+id/textView49"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:layout_marginBottom="18dp" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button15"
+        android:background="@drawable/fav"
+        android:layout_alignBaseline="@+id/textView50"
+        android:layout_alignBottom="@+id/textView50"
+        android:layout_toLeftOf="@+id/button3"
+        android:layout_toStartOf="@+id/button3" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/textView51"
+        android:background="@drawable/mapp"
+        android:layout_below="@+id/textView49"
+        android:layout_toLeftOf="@+id/button15"
+        android:layout_toStartOf="@+id/button15"
+        android:layout_marginTop="29dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="จุดนัดพบ : หน้าตึก 10"
+        android:id="@+id/textView52"
+        android:textColor="#040404"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textView51"
+        android:layout_toLeftOf="@+id/button15"
+        android:layout_toStartOf="@+id/button15" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time : 12.00 น."
+        android:id="@+id/textView53"
+        android:textColor="#040404"
+        android:layout_below="@+id/textView52"
+        android:layout_alignLeft="@+id/textView52"
+        android:layout_alignStart="@+id/textView52"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button16"
+        android:background="@drawable/green"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/textView53"
+        android:layout_alignLeft="@+id/textView53"
+        android:layout_alignStart="@+id/textView53" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/button17"
+        android:background="@drawable/close"
+        android:layout_alignTop="@+id/button16"
+        android:layout_alignRight="@+id/textView50"
+        android:layout_alignEnd="@+id/textView50" />
+
+
+</RelativeLayout>
