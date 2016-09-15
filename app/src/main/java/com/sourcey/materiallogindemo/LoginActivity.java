@@ -42,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
 
+    String strStatusID = "0";
+    String strMemberID = "0";
+    String strError = "Unknow Status!";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,27 +106,23 @@ public class LoginActivity extends AppCompatActivity {
 
     public  boolean check(){
         final EditText txtUser = (EditText)findViewById(R.id.input_email);
-        final EditText txtPass = (EditText)findViewById(R.id.input_password);
+            final EditText txtPass = (EditText)findViewById(R.id.input_password);
        /* String url = "http://172.19.43.65/joinway/checklogin.php";*/
-        String url = getString(R.string.url)+"checklogin.php";
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("strUser", txtUser.getText().toString()));
-        params.add(new BasicNameValuePair("strPass", txtPass.getText().toString()));
+            String url = getString(R.string.url)+"checklogin.php";
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("strUser", txtUser.getText().toString()));
+            params.add(new BasicNameValuePair("strPass", txtPass.getText().toString()));
 
 
 
-        String resultServer  = getHttpPost(url,params);
+            String resultServer  = getHttpPost(url,params);
 
 
-        String strStatusID = "0";
-        String strMemberID = "0";
-        String strError = "Unknow Status!";
-
-        JSONObject c;
-        try {
-            c = new JSONObject(resultServer);
-            strStatusID = c.getString("StatusID");
-            strMemberID = c.getString("MemberID");
+            JSONObject c;
+            try {
+                c = new JSONObject(resultServer);
+                strStatusID = c.getString("StatusID");
+                strMemberID = c.getString("user_id");
             strError = c.getString("Error");
 
         } catch (JSONException e) {
@@ -161,8 +160,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        Intent newActivity = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(newActivity);
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        i.putExtra("user_id", strMemberID);
+        startActivity(i);
     }
 
     public void onLoginFailed() {

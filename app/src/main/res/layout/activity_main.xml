@@ -199,7 +199,7 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button6"
+        android:id="@+id/btnSearch"
         android:background="@drawable/search"
         android:layout_above="@+id/textView12"
         android:layout_alignLeft="@+id/textView4"
@@ -210,8 +210,8 @@
         android:layout_height="35dp"
         android:id="@+id/button7"
         android:background="@drawable/ccar"
-        android:layout_alignLeft="@+id/button6"
-        android:layout_alignStart="@+id/button6"
+        android:layout_alignLeft="@+id/btnSearch"
+        android:layout_alignStart="@+id/btnSearch"
         android:layout_below="@+id/textView12" />
 
     <TextView
@@ -283,7 +283,7 @@
 
     <RadioGroup
         android:layout_width="wrap_content"
-        android:id="@+id/radioButtong"
+        android:id="@+id/radio"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/txtAppoint"
         android:layout_alignLeft="@+id/btnFeed"
@@ -293,7 +293,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="มีรถ"
-            android:id="@+id/radioButton"
+            android:id="@+id/radioCar"
             android:textColor="#040404"
             android:layout_below="@+id/textView14"
             android:layout_alignRight="@+id/button7"
@@ -304,10 +304,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ไม่มีรถ"
-            android:id="@+id/radioButton2"
-            android:layout_below="@+id/radioButton"
-            android:layout_alignLeft="@+id/radioButton"
-            android:layout_alignStart="@+id/radioButton"
+            android:id="@+id/radioNoCar"
+            android:layout_below="@+id/radioCar"
+            android:layout_alignLeft="@+id/radioCar"
+            android:layout_alignStart="@+id/radioCar"
             android:textColor="#030303"
             android:checked="false" />
     </RadioGroup>
