@@ -23,7 +23,7 @@ public class commit extends ActionBarActivity {
             }
         });
 
-        final Button btn5 = (Button) findViewById(R.id.button3);
+        final Button btn5 = (Button) findViewById(R.id.btnLogout);
         btn5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(commit.this, LoginActivity.class);

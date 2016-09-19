@@ -89,7 +89,7 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button3"
+        android:id="@+id/btnLogout"
         android:background="@drawable/log"
         android:layout_alignBottom="@+id/button2"
         android:layout_alignRight="@+id/textView4"
@@ -135,8 +135,8 @@
         android:background="@drawable/fav"
         android:layout_alignBaseline="@+id/textView50"
         android:layout_alignBottom="@+id/textView50"
-        android:layout_toLeftOf="@+id/button3"
-        android:layout_toStartOf="@+id/button3" />
+        android:layout_toLeftOf="@+id/btnLogout"
+        android:layout_toStartOf="@+id/btnLogout" />
 
     <TextView
         android:layout_width="150dp"

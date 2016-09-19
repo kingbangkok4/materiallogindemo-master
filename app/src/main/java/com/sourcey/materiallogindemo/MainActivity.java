@@ -1,17 +1,23 @@
 package com.sourcey.materiallogindemo;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -32,17 +38,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
+    //private DecimalFormat df = new DecimalFormat("#,###,###.##");
+    //private SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private String datePoint = "";
     private EditText txtStart;
     private EditText txtEnd;
     private EditText txtAppoint;
     private EditText txtTime;
     private EditText txtLicensePlate;
-
     private RadioGroup radioGroup;
 
     private String user_id = "";
@@ -52,6 +65,13 @@ public class MainActivity extends ActionBarActivity {
     private String start = "";
     private String end = "";
     private String type = "";
+    private String url = "";
+
+    private int mYear, mMonth, mDay;
+    private int mHour;
+    private int mMinute;
+    static final int TIME_DIALOG_ID = 0;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -88,24 +108,35 @@ public class MainActivity extends ActionBarActivity {
         final Button btnCancel = (Button) findViewById(R.id.btnCancel);
         final Button btnPost = (Button) findViewById(R.id.btnPost);
         final Button btnFeed = (Button) findViewById(R.id.btnFeed);
+        final Button btnSearch = (Button) findViewById(R.id.btnSearch);
+        final Button btnLogout = (Button) findViewById(R.id.btnLogout);
+        final Button btnTime = (Button) findViewById(R.id.btnTime);
+        // get the current time
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
+        mHour = c.get(Calendar.HOUR);
+        mMinute = c.get(Calendar.MINUTE);
+
+        // display the current time
+        updateCurrentTime();
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogMap();
+            }
+        });
+
+        btnTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(TIME_DIALOG_ID);
+            }
+        });
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                ClearData();
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ClearData();
-            }
-        });
-
-        btnPost.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-               /* Intent newActivity = new Intent(MainActivity.this, post.class);
-                startActivity(newActivity);*/
-                // get selected radio button from radioGroup
                 int selectedId = radioGroup.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
@@ -121,15 +152,15 @@ public class MainActivity extends ActionBarActivity {
                 start = txtStart.getText().toString();
                 end = txtEnd.getText().toString();
                 meeting_point = txtAppoint.getText().toString();
-                map_datetime = txtTime.getText().toString();
+                map_datetime = datePoint.trim();
                 license_plate = txtLicensePlate.getText().toString();
 
 
 
                 if ("".equals(start) || "".equals(end) || "".equals(meeting_point) || "".equals(map_datetime) || "".equals(license_plate)) {
-                   MessageDialog("กรุณากรอกข้อมูลให้ครบถ้วน");
+                    MessageDialog("กรุณากรอกข้อมูลให้ครบถ้วน");
                 } else {
-                    String url = getString(R.string.url)+"post.php";
+                    String url = getString(R.string.url)+"save.php";
                     List<NameValuePair> params = new ArrayList<NameValuePair>();
                     params.add(new BasicNameValuePair("user_id", user_id));
                     params.add(new BasicNameValuePair("start", start));
@@ -154,6 +185,21 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ClearData();
+            }
+        });
+
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+               /* Intent newActivity = new Intent(MainActivity.this, post.class);
+                startActivity(newActivity);*/
+                // get selected radio button from radioGroup
+
+            }
+        });
+
         btnFeed.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
               /*  if(!start.getText().toString().equals("") &&!end.getText().toString().equals("")&&
@@ -161,6 +207,14 @@ public class MainActivity extends ActionBarActivity {
                     Intent newActivity = new Intent(MainActivity.this, commit.class);
                     startActivity(newActivity);
                 }*/
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(i);
             }
         });
 
@@ -179,6 +233,30 @@ public class MainActivity extends ActionBarActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         //client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void DialogMap() {
+        View dialogBoxView = View.inflate(this, R.layout.activity_map, null);
+        final WebView map =(WebView)dialogBoxView.findViewById(R.id.webView);
+
+        String url = getString(R.string.url_map)+"index.php?poinFrom="+txtStart.getText().toString().trim()+"&poinTo="+txtEnd.getText().toString().trim();
+
+        map.getSettings().setLoadsImagesAutomatically(true);
+        map.getSettings().setJavaScriptEnabled(true);
+        map.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        map.loadUrl(url);
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("Map");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
     }
 
     private void MessageDialog(String msg) {
@@ -230,6 +308,38 @@ public class MainActivity extends ActionBarActivity {
         txtTime.setText("");
         txtLicensePlate.setText("");
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case TIME_DIALOG_ID:
+                return new TimePickerDialog(this,
+                        mTimeSetListener,
+                        mHour, mMinute, false);
+        }
+        return null;
+    }
+
+    // updates the time we display in the editText
+    private void updateCurrentTime() {
+        datePoint =(mYear+"-"+mMonth+"-"+mDay+" "+mHour+":"+mMinute);
+        //txtTime.setText(datePoint.toString());
+        txtTime.setText(
+                new StringBuilder()
+                        .append(mHour).append(":")
+                        .append(mMinute));
+    }
+
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener =
+            new TimePickerDialog.OnTimeSetListener() {
+
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    // TODO Auto-generated method stub
+                    mHour = hourOfDay;
+                    mMinute = minute;
+                    updateCurrentTime();
+                }
+            };
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {

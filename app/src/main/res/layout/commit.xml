@@ -78,7 +78,7 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button3"
+        android:id="@+id/btnLogout"
         android:background="@drawable/log"
         android:layout_alignBottom="@+id/button2"
         android:layout_alignRight="@+id/textView4"

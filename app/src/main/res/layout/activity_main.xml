@@ -117,7 +117,7 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button3"
+        android:id="@+id/btnLogout"
         android:background="@drawable/log"
         android:layout_alignBottom="@+id/button2"
         android:layout_alignRight="@+id/textView4"
@@ -240,8 +240,8 @@
         android:id="@+id/btnCancel"
         android:background="@drawable/close"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/txtTime"
-        android:layout_alignEnd="@+id/txtTime" />
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
 
     <EditText
         android:layout_width="40dp"
@@ -315,39 +315,41 @@
     <EditText
         android:layout_width="40dp"
         android:layout_height="30dp"
-        android:id="@+id/txtTime"
-        android:background="#ffffff"
-        android:textColor="#030303"
-        android:layout_below="@+id/textView16"
-        android:layout_alignLeft="@+id/textView16"
-        android:layout_alignStart="@+id/textView16"
-        android:layout_alignRight="@+id/textView6"
-        android:layout_alignEnd="@+id/textView6"
-        android:layout_marginTop="5dp" />
-
-    <EditText
-        android:layout_width="40dp"
-        android:layout_height="30dp"
         android:id="@+id/txtLicensePlate"
         android:background="#ffffff"
         android:textColor="#030303"
         android:layout_below="@+id/textView18"
         android:layout_alignLeft="@+id/textView18"
         android:layout_alignStart="@+id/textView18"
-        android:layout_alignRight="@+id/txtTime"
-        android:layout_alignEnd="@+id/txtTime"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
 
-    <TextView
+    <EditText
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/txtTime"
+        android:layout_below="@+id/textView16"
+        android:layout_alignLeft="@+id/textView18"
+        android:layout_alignStart="@+id/textView18"
+        android:layout_alignRight="@+id/btnSave"
+        android:layout_alignEnd="@+id/btnSave"
+        android:textColor="#080808" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Map"
-        android:id="@+id/textView54"
-        android:textColor="#040404"
-        android:layout_below="@+id/txtLicensePlate"
-        android:layout_alignLeft="@+id/txtLicensePlate"
-        android:layout_alignStart="@+id/txtLicensePlate"
-        android:layout_marginTop="5dp" />
+        android:text="..."
+        android:id="@+id/btnTime"
+        android:layout_alignBottom="@+id/txtTime"
+        android:layout_alignRight="@+id/txtAppoint"
+        android:layout_alignEnd="@+id/txtAppoint"
+        android:layout_toRightOf="@+id/btnSave"
+        android:layout_toEndOf="@+id/btnSave" />
 
 
 </RelativeLayout>

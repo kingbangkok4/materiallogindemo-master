@@ -15,7 +15,7 @@ public class feed extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed);
 
-        final Button btn5 = (Button) findViewById(R.id.button3);
+        final Button btn5 = (Button) findViewById(R.id.btnLogout);
         btn5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(feed.this, LoginActivity.class);
