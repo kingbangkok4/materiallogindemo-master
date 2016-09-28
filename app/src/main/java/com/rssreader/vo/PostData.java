@@ -1,7 +1,12 @@
 package com.rssreader.vo;
 
 public class PostData {
+    public String postMapID;
+    public String postName;
+    public String postStart;
+    public String postEnd;
+    public String postPoint;
+    public String postTime;
+    public String postLicensePlate;
     public String postThumbUrl;
-    public String postTitle;
-    public String postDate;
 }

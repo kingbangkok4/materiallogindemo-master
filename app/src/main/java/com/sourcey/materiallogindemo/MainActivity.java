@@ -193,8 +193,9 @@ public class MainActivity extends ActionBarActivity {
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               /* Intent newActivity = new Intent(MainActivity.this, post.class);
-                startActivity(newActivity);*/
+                Intent i = new Intent(getBaseContext(), PostItemActivity.class);
+                i.putExtra("user_id", user_id);
+                startActivity(i);
                 // get selected radio button from radioGroup
 
             }

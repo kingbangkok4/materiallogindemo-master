@@ -19,6 +19,7 @@
         </activity>
         <activity android:name="com.sourcey.materiallogindemo.MainActivity" android:screenOrientation="portrait"  android:theme="@style/AppTheme.Dark" />
         <activity android:name="com.sourcey.materiallogindemo.SignupActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Dark" />
+        <activity android:name="com.sourcey.materiallogindemo.PostItemActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Dark" />
 
         <activity
         android:name="feed"

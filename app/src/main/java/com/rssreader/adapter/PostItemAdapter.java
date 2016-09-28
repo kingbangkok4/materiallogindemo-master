@@ -35,11 +35,11 @@ public class PostItemAdapter extends ArrayAdapter<PostData> {
 
         TextView postTitleView = (TextView) rowView
                 .findViewById(R.id.postTitleLabel);
-        postTitleView.setText(datas[position].postTitle);
+        postTitleView.setText(datas[position].postName);
 
         TextView postDateView = (TextView) rowView
                 .findViewById(R.id.postDateLabel);
-        postDateView.setText(datas[position].postDate);
+        postDateView.setText(datas[position].postTime);
 
         return rowView;
     }
