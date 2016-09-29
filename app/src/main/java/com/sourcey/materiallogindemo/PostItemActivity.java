@@ -1,11 +1,14 @@
 package com.sourcey.materiallogindemo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -56,12 +59,39 @@ public class PostItemActivity extends Activity {
         if (extras != null) {
             user_id = extras.getString("user_id");
         }
+        final Button btnPost = (Button) findViewById(R.id.btnPost);
+       // final Button btnFeed = (Button) findViewById(R.id.btnFeed);
+        final Button btnNotification = (Button) findViewById(R.id.btnNotification);
+        final Button btnLogout = (Button) findViewById(R.id.btnLogout);
 
         this.generateDummyData();
         ListView listView = (ListView) this.findViewById(R.id.postListView);
         PostItemAdapter itemAdapter = new PostItemAdapter(this,
                 R.layout.postitem, listData);
         listView.setAdapter(itemAdapter);
+
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                i.putExtra("user_id", user_id);
+                startActivity(i);
+
+            }
+        });
+
+      /*  btnFeed.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });*/
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 

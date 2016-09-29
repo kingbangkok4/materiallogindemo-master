@@ -106,9 +106,10 @@ public class MainActivity extends ActionBarActivity {
 
         final Button btnSave = (Button) findViewById(R.id.btnSave);
         final Button btnCancel = (Button) findViewById(R.id.btnCancel);
-        final Button btnPost = (Button) findViewById(R.id.btnPost);
+        //final Button btnPost = (Button) findViewById(R.id.btnPost);
         final Button btnFeed = (Button) findViewById(R.id.btnFeed);
         final Button btnSearch = (Button) findViewById(R.id.btnSearch);
+        final Button btnNotification = (Button) findViewById(R.id.btnNotification);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
         final Button btnTime = (Button) findViewById(R.id.btnTime);
         // get the current time
@@ -191,15 +192,15 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        btnPost.setOnClickListener(new View.OnClickListener() {
+/*        btnPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), PostItemActivity.class);
+               *//* Intent i = new Intent(getBaseContext(), PostItemActivity.class);
                 i.putExtra("user_id", user_id);
-                startActivity(i);
+                startActivity(i);*//*
                 // get selected radio button from radioGroup
 
             }
-        });
+        });*/
 
         btnFeed.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -208,6 +209,9 @@ public class MainActivity extends ActionBarActivity {
                     Intent newActivity = new Intent(MainActivity.this, commit.class);
                     startActivity(newActivity);
                 }*/
+                Intent i = new Intent(getBaseContext(), PostItemActivity.class);
+                i.putExtra("user_id", user_id);
+                startActivity(i);
             }
         });
 

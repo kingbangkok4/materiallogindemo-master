@@ -51,47 +51,7 @@ android:background="@drawable/bg">
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Setting"
-    android:id="@+id/textView5"
-    android:textStyle="bold"
-    android:layout_alignTop="@+id/textView4"
-    android:layout_centerHorizontal="true" />
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Post"
-    android:id="@+id/textView6"
-    android:textStyle="bold"
-    android:layout_marginTop="29dp"
-    android:textColor="#040404"
-    android:layout_below="@+id/textView"
-    android:layout_toRightOf="@+id/btnPost"
-    android:layout_toEndOf="@+id/btnPost" />
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Feed"
-    android:id="@+id/textView7"
-    android:textStyle="bold"
-    android:layout_alignTop="@+id/textView6"
-    android:layout_alignRight="@+id/textView4"
-    android:layout_alignEnd="@+id/textView4"
-    android:textColor="#040404" />
-
     <Button
-    android:layout_width="35dp"
-    android:layout_height="35dp"
-    android:id="@+id/button2"
-    android:background="@drawable/setting"
-    android:layout_above="@+id/textView5"
-    android:layout_centerHorizontal="true" />
-
-<Button
     android:layout_width="35dp"
     android:layout_height="35dp"
     android:id="@+id/btnLogout"
@@ -99,24 +59,6 @@ android:background="@drawable/bg">
     android:layout_alignBottom="@+id/button2"
     android:layout_alignRight="@+id/textView4"
     android:layout_alignEnd="@+id/textView4" />
-
-<Button
-    android:layout_width="35dp"
-    android:layout_height="35dp"
-    android:id="@+id/btnPost"
-    android:background="@drawable/post"
-    android:layout_alignBottom="@+id/textView6"
-    android:layout_alignLeft="@+id/button2"
-    android:layout_alignStart="@+id/button2" />
-
-<Button
-    android:layout_width="35dp"
-    android:layout_height="35dp"
-    android:id="@+id/btnFeed"
-    android:background="@drawable/feed"
-    android:layout_alignBottom="@+id/textView7"
-    android:layout_toLeftOf="@+id/textView7"
-    android:layout_toStartOf="@+id/textView7" />
 
     <ListView
         android:id="@+id/postListView"
@@ -128,14 +70,35 @@ android:background="@drawable/bg">
         android:layout_alignParentBottom="true" />
 
     <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnPost"
+        android:background="@drawable/post"
+        android:layout_above="@+id/postListView"
+        android:layout_toLeftOf="@+id/textView6"
+        android:layout_toStartOf="@+id/textView6" />
+
+    <Button
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:id="@+id/button"
+        android:id="@+id/btnNotification"
         android:background="@drawable/nat"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
+        android:layout_alignStart="@+id/textView3" />
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Post"
+    android:id="@+id/textView6"
+    android:textStyle="bold"
+    android:layout_marginTop="29dp"
+    android:textColor="#040404"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
 
 </RelativeLayout>
