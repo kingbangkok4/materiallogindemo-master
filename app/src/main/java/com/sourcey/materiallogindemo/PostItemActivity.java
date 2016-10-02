@@ -1,6 +1,8 @@
 package com.sourcey.materiallogindemo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,9 +10,14 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 import com.rssreader.adapter.PostItemAdapter;
 import com.rssreader.vo.PostData;
@@ -41,6 +48,9 @@ import java.util.List;
 public class PostItemActivity extends Activity {
     private PostData[] listData;
     private String user_id = "";
+    private RadioGroup radioGroup;
+    ListView listView;
+    private String type = "CAR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +73,25 @@ public class PostItemActivity extends Activity {
        // final Button btnFeed = (Button) findViewById(R.id.btnFeed);
         final Button btnNotification = (Button) findViewById(R.id.btnNotification);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
+        radioGroup = (RadioGroup) findViewById(R.id.radio);
+        listView = (ListView) this.findViewById(R.id.postListView);
 
         this.generateDummyData();
-        ListView listView = (ListView) this.findViewById(R.id.postListView);
-        PostItemAdapter itemAdapter = new PostItemAdapter(this,
-                R.layout.postitem, listData);
-        listView.setAdapter(itemAdapter);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find the radiobutton by returned id
+                type = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
+                if("มีรถ".equals(type)){
+                    type = "CAR";
+                }else{
+                    type = "NOCAR";
+                }
+                generateDummyData();
+            }
+        });
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -79,6 +102,13 @@ public class PostItemActivity extends Activity {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String map_id = listData[position].postMapID;
+                DialogRequest(map_id);
+            }
+        });
       /*  btnFeed.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -107,11 +137,12 @@ public class PostItemActivity extends Activity {
 
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("no_parameter", ""));
+        params.add(new BasicNameValuePair("type", type));
         try {
             JSONArray data = new JSONArray(getJSONUrl(url, params));
             if (data.length() > 0) {
                 PostData data_add = null;
+               // listData = null;
                 listData = new PostData[data.length()];
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject c = data.getJSONObject(i);
@@ -127,11 +158,40 @@ public class PostItemActivity extends Activity {
                     data_add.postThumbUrl = null;
                     listData[i] = data_add;
                 }
+                PostItemAdapter itemAdapter = new PostItemAdapter(this,
+                        R.layout.postitem, listData);
+                listView.setAdapter(itemAdapter);
+            }else {
+                listView.setAdapter(null);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void DialogRequest(String map_id) {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_request, null);
+        final Button btnRequest =(Button)dialogBoxView.findViewById(R.id.button3);
+
+       /* String url = getString(R.string.url_map)+"index.php?poinFrom="+txtStart.getText().toString().trim()+"&poinTo="+txtEnd.getText().toString().trim();
+
+        map.getSettings().setLoadsImagesAutomatically(true);
+        map.getSettings().setJavaScriptEnabled(true);
+        map.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        map.loadUrl(url);*/
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("Request");
+        builderInOut.setMessage(map_id)
+                .setView(dialogBoxView)
+                .setCancelable(false)
+                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
     }
 
     public String getHttpPost(String url, List<NameValuePair> params) {

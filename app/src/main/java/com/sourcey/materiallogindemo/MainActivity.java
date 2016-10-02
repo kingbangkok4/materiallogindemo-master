@@ -178,6 +178,9 @@ public class MainActivity extends ActionBarActivity {
                         c = new JSONObject(resultServer);
                         String status = c.getString("status");
                         MessageDialog(status);
+                        if("บันทึกสำเร็จ".equals(status)){
+                            ClearData();
+                        }
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
                         MessageDialog(e.getMessage());
