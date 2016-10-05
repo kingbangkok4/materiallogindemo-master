@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
@@ -16,8 +15,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 
 import com.rssreader.adapter.PostItemAdapter;
 import com.rssreader.vo.PostData;
@@ -41,7 +38,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -51,6 +47,8 @@ public class PostItemActivity extends Activity {
     private RadioGroup radioGroup;
     ListView listView;
     private String type = "CAR";
+    private String strStart = "";
+    private String strEnd = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,10 +168,43 @@ public class PostItemActivity extends Activity {
         }
     }
 
-    private void DialogRequest(String map_id) {
-        View dialogBoxView = View.inflate(this, R.layout.dialog_request, null);
-        final Button btnRequest =(Button)dialogBoxView.findViewById(R.id.button3);
+    private void saveRequest(String map_id, String passenger) {
+        String url = getString(R.string.url) + "match.php";
 
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("map_id", map_id));
+        params.add(new BasicNameValuePair("passenger", passenger));
+        String resultServer  = getHttpPost(url,params);
+
+        JSONObject c;
+        try {
+            c = new JSONObject(resultServer);
+            String status = c.getString("status");
+            MessageDialog(status);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            MessageDialog(e.getMessage());
+        }
+    }
+
+    private void DialogRequest(final String map_id) {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_request, null);
+        final Button btnMap =(Button)dialogBoxView.findViewById(R.id.btnMap);
+        final Button btnRequest =(Button)dialogBoxView.findViewById(R.id.btnRequest);
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogMap();
+            }
+        });
+        btnRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveRequest(map_id, user_id);
+            }
+        });
        /* String url = getString(R.string.url_map)+"index.php?poinFrom="+txtStart.getText().toString().trim()+"&poinTo="+txtEnd.getText().toString().trim();
 
         map.getSettings().setLoadsImagesAutomatically(true);
@@ -183,7 +214,31 @@ public class PostItemActivity extends Activity {
 
         AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
         builderInOut.setTitle("Request");
-        builderInOut.setMessage(map_id)
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
+    }
+
+    private void DialogMap() {
+        View dialogBoxView = View.inflate(this, R.layout.activity_map, null);
+        final WebView map =(WebView)dialogBoxView.findViewById(R.id.webView);
+
+        String url = getString(R.string.url_map)+"index.php?poinFrom="+strStart+"&poinTo="+strEnd;
+
+        map.getSettings().setLoadsImagesAutomatically(true);
+        map.getSettings().setJavaScriptEnabled(true);
+        map.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        map.loadUrl(url);
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("Map");
+        builderInOut.setMessage("")
                 .setView(dialogBoxView)
                 .setCancelable(false)
                 .setPositiveButton("Close", new DialogInterface.OnClickListener() {
@@ -251,6 +306,19 @@ public class PostItemActivity extends Activity {
             e.getMessage();
         }
         return str.toString();
+    }
+
+    private void MessageDialog(String msg) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }
