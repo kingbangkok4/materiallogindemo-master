@@ -152,7 +152,7 @@ public class PostItemActivity extends Activity {
                     data_add.postEnd = "ปลายทาง: " + c.getString("end");
                     data_add.postPoint = "จุดนัดพบ: " + c.getString("meeting_point");
                     data_add.postTime = "วัน-เวลา: " + c.getString("map_datetime") + " น.";
-                    data_add.postLicensePlate = "ปายทะเบียน: " + c.getString("license_plate");
+                    data_add.postLicensePlate = "ทะเบียน: " + c.getString("license_plate");
                     data_add.postThumbUrl = null;
                     listData[i] = data_add;
                 }
