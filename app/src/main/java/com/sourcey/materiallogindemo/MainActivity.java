@@ -158,7 +158,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-                if ("".equals(start) || "".equals(end) || "".equals(meeting_point) || "".equals(map_datetime) || "".equals(license_plate)) {
+                if ("".equals(start) || "".equals(end) || "".equals(meeting_point) || "".equals(map_datetime) || "".equals(license_plate) || "".equals(txtTime.getText().toString().trim())) {
                     MessageDialog("กรุณากรอกข้อมูลให้ครบถ้วน");
                 } else {
                     String url = getString(R.string.url)+"save.php";
