@@ -13,7 +13,7 @@ public class feed extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.feed);
+        setContentView(R.layout.activity_nontification);
 
         final Button btn5 = (Button) findViewById(R.id.btnLogout);
         btn5.setOnClickListener(new View.OnClickListener() {

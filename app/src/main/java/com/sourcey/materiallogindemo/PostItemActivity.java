@@ -104,7 +104,8 @@ public class PostItemActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String map_id = listData[position].postMapID;
-                DialogRequest(map_id);
+                String passenger = listData[position].user_id;
+                DialogRequest(map_id, passenger);
             }
         });
       /*  btnFeed.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +139,12 @@ public class PostItemActivity extends Activity {
         params.add(new BasicNameValuePair("type", type));
         try {
             JSONArray data = new JSONArray(getJSONUrl(url, params));
+            String txtType = "";
+            if("CAR".equals(type)){
+                txtType = "ผู้ขับ";
+            }else if("NOCAR".equals(type)){
+                txtType = "ผู้โดยสาร";
+            }
             if (data.length() > 0) {
                 PostData data_add = null;
                // listData = null;
@@ -147,7 +154,8 @@ public class PostItemActivity extends Activity {
 
                     data_add = new PostData();
                     data_add.postMapID = c.getString("map_id");
-                    data_add.postName = "ชื่อ: " + c.getString("firstname") + " " + c.getString("lastname");
+                    data_add.user_id = c.getString("user_id");
+                    data_add.postName = "ชื่อ"+txtType+": " + c.getString("firstname") + " " + c.getString("lastname");
                     data_add.postStart = "ต้นทาง: " + c.getString("start");
                     data_add.postEnd = "ปลายทาง: " + c.getString("end");
                     data_add.postPoint = "จุดนัดพบ: " + c.getString("meeting_point");
@@ -168,13 +176,14 @@ public class PostItemActivity extends Activity {
         }
     }
 
-    private void saveRequest(String map_id, String passenger) {
-        String url = getString(R.string.url) + "match.php";
+    private void saveRequest(String map_id, String id) {
+        String url = getString(R.string.url) + "request.php";
 
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("map_id", map_id));
-        params.add(new BasicNameValuePair("passenger", passenger));
+        params.add(new BasicNameValuePair("user_id", id));
+        params.add(new BasicNameValuePair("type", type));
         String resultServer  = getHttpPost(url,params);
 
         JSONObject c;
@@ -188,7 +197,7 @@ public class PostItemActivity extends Activity {
         }
     }
 
-    private void DialogRequest(final String map_id) {
+    private void DialogRequest(final String map_id, final String passenger) {
         View dialogBoxView = View.inflate(this, R.layout.dialog_request, null);
         final Button btnMap =(Button)dialogBoxView.findViewById(R.id.btnMap);
         final Button btnRequest =(Button)dialogBoxView.findViewById(R.id.btnRequest);
@@ -202,7 +211,13 @@ public class PostItemActivity extends Activity {
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveRequest(map_id, user_id);
+                if("CAR".equals(type)){
+                    saveRequest(map_id, user_id);
+                }else if("NOCAR".equals(type)){
+                    saveRequest(map_id, passenger);
+                }else {
+                    MessageDialog("ไม่ทราบประเภท!!");
+                }
             }
         });
        /* String url = getString(R.string.url_map)+"index.php?poinFrom="+txtStart.getText().toString().trim()+"&poinTo="+txtEnd.getText().toString().trim();

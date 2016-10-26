@@ -9,4 +9,5 @@ public class PostData {
     public String postTime;
     public String postLicensePlate;
     public String postThumbUrl;
+    public String user_id;
 }
