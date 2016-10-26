@@ -27,6 +27,15 @@
         android:textColor="#fffefe" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comment"
+        android:id="@+id/textView30"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,18 +63,10 @@
         android:id="@+id/btnLogout"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_alignBottom="@+id/btnComment"
         android:layout_alignEnd="@+id/textView4"
         android:layout_alignRight="@+id/textView4"
         android:background="@drawable/log" />
-
-    <ListView
-        android:id="@+id/postListView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/radio" />
 
     <Button
         android:id="@+id/btnPost"
@@ -123,5 +124,21 @@
         android:textColor="#030303"
         android:layout_alignBaseline="@+id/btnPost" />
     </RadioGroup>
+
+    <ListView
+        android:id="@+id/postListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radio" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnComment"
+        android:background="@drawable/setting"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
 

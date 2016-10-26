@@ -27,6 +27,23 @@
         android:textColor="#fffefe" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comment"
+        android:id="@+id/textView29"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnComment"
+        android:background="@drawable/setting"
+        android:layout_above="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,7 +105,7 @@
         android:layout_height="40dp"
         android:layout_alignEnd="@+id/textView8"
         android:layout_alignRight="@+id/textView8"
-        android:layout_alignTop="@+id/button2"
+        android:layout_alignTop="@+id/btnComment"
         android:background="@drawable/nat" />
 
 
@@ -96,7 +113,7 @@
         android:id="@+id/btnLogout"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_alignBottom="@+id/btnComment"
         android:layout_alignEnd="@+id/textView4"
         android:layout_alignRight="@+id/textView4"
         android:background="@drawable/log" />

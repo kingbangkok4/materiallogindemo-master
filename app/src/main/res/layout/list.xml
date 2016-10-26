@@ -74,14 +74,14 @@
         android:id="@+id/button"
         android:background="@drawable/nat"
         android:focusableInTouchMode="false"
-        android:layout_alignTop="@+id/button2"
+        android:layout_alignTop="@+id/btnComment"
         android:layout_alignRight="@+id/textView8"
         android:layout_alignEnd="@+id/textView8" />
 
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:id="@+id/button2"
+        android:id="@+id/btnComment"
         android:background="@drawable/setting"
         android:layout_above="@+id/textView5"
         android:layout_centerHorizontal="true" />
@@ -91,7 +91,7 @@
         android:layout_height="35dp"
         android:id="@+id/btnLogout"
         android:background="@drawable/log"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_alignBottom="@+id/btnComment"
         android:layout_alignRight="@+id/textView4"
         android:layout_alignEnd="@+id/textView4" />
 
@@ -124,8 +124,8 @@
         android:textStyle="bold"
         android:textColor="#040404"
         android:layout_alignBottom="@+id/textView49"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2"
+        android:layout_alignLeft="@+id/btnComment"
+        android:layout_alignStart="@+id/btnComment"
         android:layout_marginBottom="18dp" />
 
     <Button
