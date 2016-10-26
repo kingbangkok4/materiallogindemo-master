@@ -41,7 +41,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PostItemActivity extends Activity {
+/**
+ * Created by Administrator on 10/27/2016.
+ */
+
+public class NotificationActivity extends Activity {
     private PostData[] listData;
     private String user_id = "";
     private RadioGroup radioGroup;
@@ -53,7 +57,7 @@ public class PostItemActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_postlist);
+        setContentView(R.layout.activity_nontification);
 
         // Permission StrictMode
         if (Build.VERSION.SDK_INT > 9) {
@@ -67,29 +71,13 @@ public class PostItemActivity extends Activity {
         if (extras != null) {
             user_id = extras.getString("user_id");
         }
+
         final Button btnPost = (Button) findViewById(R.id.btnPost);
-       // final Button btnFeed = (Button) findViewById(R.id.btnFeed);
-        final Button btnNotification = (Button) findViewById(R.id.btnNotification);
+        final Button btnFeed = (Button) findViewById(R.id.btnFeed);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
-        radioGroup = (RadioGroup) findViewById(R.id.radio);
         listView = (ListView) this.findViewById(R.id.postListView);
 
         this.generateDummyData();
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // find the radiobutton by returned id
-                type = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
-                if("มีรถ".equals(type)){
-                    type = "CAR";
-                }else{
-                    type = "NOCAR";
-                }
-                generateDummyData();
-            }
-        });
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -99,21 +87,12 @@ public class PostItemActivity extends Activity {
 
             }
         });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String map_id = listData[position].postMapID;
-                String passenger = listData[position].user_id;
-                DialogRequest(map_id, passenger);
-            }
-        });
-        btnNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
+        btnFeed.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), NotificationActivity.class);
+                Intent i = new Intent(getBaseContext(), PostItemActivity.class);
                 i.putExtra("user_id", user_id);
                 startActivity(i);
+
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -125,38 +104,34 @@ public class PostItemActivity extends Activity {
         });
     }
 
-
-    /* @Override
-     public boolean onCreateOptionsMenu(Menu menu) {
-         // Inflate the menu; this adds items to the action bar if it is present.
-         getMenuInflater().inflate(R.menu.main, menu);
-         return true;
-     }
- */
     private void generateDummyData() {
-        String url = getString(R.string.url) + "map.php";
+        String url = getString(R.string.url) + "notification.php";
 
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("type", type));
+        params.add(new BasicNameValuePair("user_id", user_id));
         try {
             JSONArray data = new JSONArray(getJSONUrl(url, params));
             String txtType = "";
-            if("CAR".equals(type)){
-                txtType = "ผู้ขับ";
-            }else if("NOCAR".equals(type)){
-                txtType = "ผู้โดยสาร";
-            }
+
             if (data.length() > 0) {
                 PostData data_add = null;
-               // listData = null;
+                // listData = null;
                 listData = new PostData[data.length()];
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject c = data.getJSONObject(i);
 
+                    if("CAR".equals(c.getString("type"))){
+                        txtType = "ผู้โดยสาร";
+                    }else if("NOCAR".equals(c.getString("type"))){
+                        txtType = "ผู้ขับ";
+                    }
+
                     data_add = new PostData();
                     data_add.postMapID = c.getString("map_id");
-                    data_add.user_id = c.getString("user_id");
+                    data_add.m_user_id = c.getString("m_user_id");
+                    data_add.r_user_id = c.getString("r_user_id");
+                    data_add.type = c.getString("type");
                     data_add.postName = "ชื่อ"+txtType+": " + c.getString("firstname") + " " + c.getString("lastname");
                     data_add.postStart = "ต้นทาง: " + c.getString("start");
                     data_add.postEnd = "ปลายทาง: " + c.getString("end");
@@ -176,94 +151,6 @@ public class PostItemActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    private void saveRequest(String map_id, String id) {
-        String url = getString(R.string.url) + "request.php";
-
-        // Paste Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("map_id", map_id));
-        params.add(new BasicNameValuePair("user_id", id));
-        params.add(new BasicNameValuePair("type", type));
-        String resultServer  = getHttpPost(url,params);
-
-        JSONObject c;
-        try {
-            c = new JSONObject(resultServer);
-            String status = c.getString("status");
-            MessageDialog(status);
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            MessageDialog(e.getMessage());
-        }
-    }
-
-    private void DialogRequest(final String map_id, final String passenger) {
-        View dialogBoxView = View.inflate(this, R.layout.dialog_request, null);
-        final Button btnMap =(Button)dialogBoxView.findViewById(R.id.btnMap);
-        final Button btnRequest =(Button)dialogBoxView.findViewById(R.id.btnRequest);
-
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogMap();
-            }
-        });
-        btnRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if("CAR".equals(type)){
-                    saveRequest(map_id, user_id);
-                }else if("NOCAR".equals(type)){
-                    saveRequest(map_id, passenger);
-                }else {
-                    MessageDialog("ไม่ทราบประเภท!!");
-                }
-            }
-        });
-       /* String url = getString(R.string.url_map)+"index.php?poinFrom="+txtStart.getText().toString().trim()+"&poinTo="+txtEnd.getText().toString().trim();
-
-        map.getSettings().setLoadsImagesAutomatically(true);
-        map.getSettings().setJavaScriptEnabled(true);
-        map.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        map.loadUrl(url);*/
-
-        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("Request");
-        builderInOut.setMessage("")
-                .setView(dialogBoxView)
-                .setCancelable(false)
-                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                })
-                .show();
-    }
-
-    private void DialogMap() {
-        View dialogBoxView = View.inflate(this, R.layout.activity_map, null);
-        final WebView map =(WebView)dialogBoxView.findViewById(R.id.webView);
-
-        String url = getString(R.string.url_map)+"index.php?poinFrom="+strStart+"&poinTo="+strEnd;
-
-        map.getSettings().setLoadsImagesAutomatically(true);
-        map.getSettings().setJavaScriptEnabled(true);
-        map.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        map.loadUrl(url);
-
-        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("Map");
-        builderInOut.setMessage("")
-                .setView(dialogBoxView)
-                .setCancelable(false)
-                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                })
-                .show();
     }
 
     public String getHttpPost(String url, List<NameValuePair> params) {
@@ -337,5 +224,4 @@ public class PostItemActivity extends Activity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 }

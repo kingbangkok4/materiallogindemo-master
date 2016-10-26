@@ -10,4 +10,7 @@ public class PostData {
     public String postLicensePlate;
     public String postThumbUrl;
     public String user_id;
+    public String m_user_id;
+    public String r_user_id;
+    public String type;
 }

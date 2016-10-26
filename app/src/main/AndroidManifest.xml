@@ -20,37 +20,9 @@
         <activity android:name="com.sourcey.materiallogindemo.MainActivity" android:screenOrientation="portrait"  android:theme="@style/AppTheme.Dark" />
         <activity android:name="com.sourcey.materiallogindemo.SignupActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Dark" />
         <activity android:name="com.sourcey.materiallogindemo.PostItemActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Dark" />
-
-        <activity
-        android:name="feed"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait"
-       />
-
-        <activity
-            android:name="post"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"
-            />
+        <activity android:name="com.sourcey.materiallogindemo.NotificationActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Dark" />
 
 
-        <activity
-            android:name="commit"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"
-            />
-
-        <activity
-            android:name="req"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"
-            />
-
-        <activity
-            android:name=".join"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"
-            />
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data

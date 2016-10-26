@@ -125,14 +125,6 @@
         android:layout_alignBaseline="@+id/btnPost" />
     </RadioGroup>
 
-    <ListView
-        android:id="@+id/postListView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/radio" />
-
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -140,5 +132,14 @@
         android:background="@drawable/setting"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:id="@+id/postListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radio" />
 </RelativeLayout>
 

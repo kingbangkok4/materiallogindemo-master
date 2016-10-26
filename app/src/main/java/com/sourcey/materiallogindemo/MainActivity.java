@@ -217,7 +217,14 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
-
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), NotificationActivity.class);
+                i.putExtra("user_id", user_id);
+                startActivity(i);
+            }
+        });
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
