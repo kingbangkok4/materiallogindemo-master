@@ -105,8 +105,8 @@ public class PostItemActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String map_id = listData[position].postMapID;
                 String passenger = listData[position].user_id;
-                strStart = listData[position].postStart;
-                strEnd = listData[position].postEnd;
+                strStart = listData[position].postStart.replace("ต้นทาง: ", "");
+                strEnd = listData[position].postEnd.replace("ปลายทาง: ", "");
                 DialogRequest(map_id, passenger);
             }
         });
