@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -57,6 +58,7 @@ public class MainActivity extends ActionBarActivity {
     private EditText txtTime;
     private EditText txtLicensePlate;
     private RadioGroup radioGroup;
+    private TextView badge;
 
     private String user_id = "";
     private String meeting_point = "";
@@ -71,6 +73,8 @@ public class MainActivity extends ActionBarActivity {
     private int mHour;
     private int mMinute;
     static final int TIME_DIALOG_ID = 0;
+
+    private  int notifications = 2;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -104,6 +108,8 @@ public class MainActivity extends ActionBarActivity {
 
         radioGroup = (RadioGroup) findViewById(R.id.radio);
 
+        badge = (TextView) findViewById(R.id.badge);
+
         final Button btnSave = (Button) findViewById(R.id.btnSave);
         final Button btnCancel = (Button) findViewById(R.id.btnCancel);
         //final Button btnPost = (Button) findViewById(R.id.btnPost);
@@ -120,6 +126,13 @@ public class MainActivity extends ActionBarActivity {
 
         mHour = c.get(Calendar.HOUR);
         mMinute = c.get(Calendar.MINUTE);
+
+        if (notifications > 0) {
+            badge.setVisibility(View.VISIBLE);
+            badge.setText(String.valueOf(notifications));
+        } else {
+            badge.setVisibility(View.GONE);
+        }
 
         // display the current time
         updateCurrentTime();
