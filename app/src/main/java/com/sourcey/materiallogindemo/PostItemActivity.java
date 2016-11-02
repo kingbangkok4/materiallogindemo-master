@@ -105,6 +105,8 @@ public class PostItemActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String map_id = listData[position].postMapID;
                 String passenger = listData[position].user_id;
+                strStart = listData[position].postStart;
+                strEnd = listData[position].postEnd;
                 DialogRequest(map_id, passenger);
             }
         });
@@ -230,7 +232,7 @@ public class PostItemActivity extends Activity {
         map.loadUrl(url);*/
 
         AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("Request");
+        builderInOut.setTitle("ส่งการร้องขอ");
         builderInOut.setMessage("")
                 .setView(dialogBoxView)
                 .setCancelable(false)
@@ -254,7 +256,7 @@ public class PostItemActivity extends Activity {
         map.loadUrl(url);
 
         AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("Map");
+        builderInOut.setTitle("แผนที่");
         builderInOut.setMessage("")
                 .setView(dialogBoxView)
                 .setCancelable(false)

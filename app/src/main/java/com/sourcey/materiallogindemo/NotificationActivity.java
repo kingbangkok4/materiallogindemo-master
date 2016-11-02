@@ -51,8 +51,8 @@ public class NotificationActivity extends Activity {
     private RadioGroup radioGroup;
     ListView listView;
     private String type = "CAR";
-    private String strStart = "";
-    private String strEnd = "";
+    //private String strStart = "";
+    //private String strEnd = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,14 @@ public class NotificationActivity extends Activity {
 
         this.generateDummyData();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String request_id = listData[position].request_id;
+                DialogConfirmRequest(request_id);
+            }
+        });
+
         btnPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
@@ -104,6 +112,63 @@ public class NotificationActivity extends Activity {
         });
     }
 
+    private void DialogConfirmRequest(final String request_id) {
+        View dialogBoxView = View.inflate(this, R.layout.dialog_confirm_request, null);
+        final Button btnAccept = (Button) dialogBoxView.findViewById(R.id.btnAccept);
+        final Button btnReject = (Button) dialogBoxView.findViewById(R.id.btnReject);
+
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveConfirm(request_id, "ACCEPT");
+            }
+        });
+        btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveConfirm(request_id, "REJECT");
+            }
+        });
+       /* String url = getString(R.string.url_map)+"index.php?poinFrom="+txtStart.getText().toString().trim()+"&poinTo="+txtEnd.getText().toString().trim();
+
+        map.getSettings().setLoadsImagesAutomatically(true);
+        map.getSettings().setJavaScriptEnabled(true);
+        map.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        map.loadUrl(url);*/
+
+        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
+        builderInOut.setTitle("ตอบรับการร้องขอมา");
+        builderInOut.setMessage("")
+                .setView(dialogBoxView)
+                .setCancelable(false)
+                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
+    }
+
+    private void saveConfirm(String request_id, String action) {
+        String url = getString(R.string.url) + "comfirmRequest.php";
+
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("request_id", request_id));
+        params.add(new BasicNameValuePair("action", action));
+        String resultServer  = getHttpPost(url,params);
+
+        JSONObject c;
+        try {
+            c = new JSONObject(resultServer);
+            String status = c.getString("status");
+            MessageDialog(status);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            MessageDialog(e.getMessage());
+        }
+    }
+
     private void generateDummyData() {
         String url = getString(R.string.url) + "notification.php";
 
@@ -121,18 +186,19 @@ public class NotificationActivity extends Activity {
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject c = data.getJSONObject(i);
 
-                    if("CAR".equals(c.getString("type"))){
+                    if ("CAR".equals(c.getString("type"))) {
                         txtType = "ผู้โดยสาร";
-                    }else if("NOCAR".equals(c.getString("type"))){
+                    } else if ("NOCAR".equals(c.getString("type"))) {
                         txtType = "ผู้ขับ";
                     }
 
                     data_add = new PostData();
+                    data_add.request_id = c.getString("request_id");
                     data_add.postMapID = c.getString("map_id");
                     data_add.m_user_id = c.getString("m_user_id");
                     data_add.r_user_id = c.getString("r_user_id");
                     data_add.type = c.getString("type");
-                    data_add.postName = "ชื่อ"+txtType+": " + c.getString("firstname") + " " + c.getString("lastname");
+                    data_add.postName = "ชื่อ" + txtType + ": " + c.getString("firstname") + " " + c.getString("lastname");
                     data_add.postStart = "ต้นทาง: " + c.getString("start");
                     data_add.postEnd = "ปลายทาง: " + c.getString("end");
                     data_add.postPoint = "จุดนัดพบ: " + c.getString("meeting_point");
@@ -144,7 +210,7 @@ public class NotificationActivity extends Activity {
                 PostItemAdapter itemAdapter = new PostItemAdapter(this,
                         R.layout.postitem, listData);
                 listView.setAdapter(itemAdapter);
-            }else {
+            } else {
                 listView.setAdapter(null);
             }
 
