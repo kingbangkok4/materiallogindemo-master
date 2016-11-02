@@ -108,7 +108,6 @@
         android:layout_alignTop="@+id/btnComment"
         android:background="@drawable/nat" />
 
-
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="35dp"
@@ -336,5 +335,19 @@
         android:layout_alignTop="@+id/btnSave"
         android:layout_toRightOf="@+id/btnSave"
         android:layout_toEndOf="@+id/btnSave" />
+
+    <TextView
+        android:id="@+id/badge"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@drawable/badge_background"
+        android:layout_alignBottom="@+id/btnComment"
+        android:layout_toRightOf="@+id/textView14"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textView12"
+        android:layout_alignEnd="@+id/textView12" />
 
 </RelativeLayout>
