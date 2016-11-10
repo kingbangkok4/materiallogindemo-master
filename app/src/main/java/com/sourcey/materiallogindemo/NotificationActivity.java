@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.rssreader.adapter.PostItemAdapter;
 import com.rssreader.vo.PostData;
@@ -42,7 +43,7 @@ import java.util.List;
 
 
 /**
- * Created by Administrator on 10/27/2016.
+ * Created by PC on 10/27/2016.
  */
 
 public class NotificationActivity extends Activity {
@@ -51,6 +52,9 @@ public class NotificationActivity extends Activity {
     private RadioGroup radioGroup;
     ListView listView;
     private String type = "CAR";
+    private MasterActivity master = new MasterActivity();
+    private  int notifications = 0;
+    TextView badge;
     //private String strStart = "";
     //private String strEnd = "";
 
@@ -76,8 +80,10 @@ public class NotificationActivity extends Activity {
         final Button btnFeed = (Button) findViewById(R.id.btnFeed);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
         listView = (ListView) this.findViewById(R.id.postListView);
+        badge = (TextView) findViewById(R.id.badge);
 
         this.generateDummyData();
+        this.ConutNotification();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -110,6 +116,17 @@ public class NotificationActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    private void ConutNotification() {
+        String url = getString(R.string.url) + "notification.php";
+        notifications = master.GetCountNotification(user_id, url);
+        if (notifications > 0) {
+            badge.setVisibility(View.VISIBLE);
+            badge.setText(String.valueOf(notifications));
+        } else {
+            badge.setVisibility(View.GONE);
+        }
     }
 
     private void DialogConfirmRequest(final String request_id) {
@@ -167,11 +184,12 @@ public class NotificationActivity extends Activity {
             // TODO Auto-generated catch block
             MessageDialog(e.getMessage());
         }
+
+        this.ConutNotification();
     }
 
     private void generateDummyData() {
         String url = getString(R.string.url) + "notification.php";
-
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("user_id", user_id));
@@ -213,7 +231,7 @@ public class NotificationActivity extends Activity {
             } else {
                 listView.setAdapter(null);
             }
-
+            this.ConutNotification();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -271,6 +289,7 @@ public class NotificationActivity extends Activity {
                 Log.e("Log", "Failed to download file..");
             }
         } catch (ClientProtocolException e) {
+            e.getMessage();
             e.getMessage();
         } catch (IOException e) {
             e.getMessage();

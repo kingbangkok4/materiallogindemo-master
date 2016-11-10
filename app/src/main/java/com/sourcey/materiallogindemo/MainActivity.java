@@ -73,8 +73,8 @@ public class MainActivity extends ActionBarActivity {
     private int mHour;
     private int mMinute;
     static final int TIME_DIALOG_ID = 0;
-
-    private  int notifications = 2;
+    private MasterActivity master = new MasterActivity();
+    private  int notifications = 0;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -127,6 +127,8 @@ public class MainActivity extends ActionBarActivity {
         mHour = c.get(Calendar.HOUR);
         mMinute = c.get(Calendar.MINUTE);
 
+        String url = getString(R.string.url) + "notification.php";
+        notifications = master.GetCountNotification(user_id, url);
         if (notifications > 0) {
             badge.setVisibility(View.VISIBLE);
             badge.setText(String.valueOf(notifications));
