@@ -347,7 +347,7 @@
         android:layout_alignBottom="@+id/btnComment"
         android:layout_toRightOf="@+id/textView14"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/textView12"
-        android:layout_alignEnd="@+id/textView12" />
+        android:layout_alignRight="@+id/textView10"
+        android:layout_alignEnd="@+id/textView10" />
 
 </RelativeLayout>
