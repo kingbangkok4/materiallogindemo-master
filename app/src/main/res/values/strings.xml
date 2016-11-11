@@ -3,8 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
 <!--    <string name="url">http://172.22.26.147:9999/joinway_web/source/mobile/</string>-->
-    <string name="url">http://10.0.2.2/joinway_web/source/mobile/</string>
-    <string name="url_map">http://10.0.2.2/map/</string>
+    <string name="url">http://10.0.2.2:8888/joinway_web/source/mobile/</string>
+    <string name="url_map">http://10.0.2.2:8888/map/</string>
     <!--<string name="action_settings">Settings</string>-->
     <string name="test"></string>
 </resources>
