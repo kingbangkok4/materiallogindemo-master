@@ -12,15 +12,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.rssreader.adapter.PostItemAdapter;
+import com.rssreader.vo.PostData;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,6 +39,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,13 +56,13 @@ import java.util.Date;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
     //private DecimalFormat df = new DecimalFormat("#,###,###.##");
     //private SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private String datePoint = "";
-    private EditText txtStart;
-    private EditText txtEnd;
-    private EditText txtAppoint;
+    private AutoCompleteTextView txtStart;
+    private AutoCompleteTextView txtEnd;
+    private AutoCompleteTextView txtAppoint;
     private EditText txtTime;
     private EditText txtLicensePlate;
     private RadioGroup radioGroup;
@@ -74,7 +82,9 @@ public class MainActivity extends ActionBarActivity {
     private int mMinute;
     static final int TIME_DIALOG_ID = 0;
     private MasterActivity master = new MasterActivity();
-    private  int notifications = 0;
+    private int notifications = 0;
+    private ArrayAdapter<String> adapter;
+    String item[];
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -100,9 +110,9 @@ public class MainActivity extends ActionBarActivity {
             user_id = extras.getString("user_id");
         }
 
-        txtStart = (EditText) findViewById(R.id.txtStart);
-        txtEnd = (EditText) findViewById(R.id.txtEnd);
-        txtAppoint = (EditText) findViewById(R.id.txtAppoint);
+        txtStart = (AutoCompleteTextView) findViewById(R.id.txtStart);
+        txtEnd = (AutoCompleteTextView) findViewById(R.id.txtEnd);
+        txtAppoint = (AutoCompleteTextView) findViewById(R.id.txtAppoint);
         txtTime = (EditText) findViewById(R.id.txtTime);
         txtLicensePlate = (EditText) findViewById(R.id.txtLicensePlate);
 
@@ -118,6 +128,7 @@ public class MainActivity extends ActionBarActivity {
         final Button btnNotification = (Button) findViewById(R.id.btnNotification);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
         final Button btnTime = (Button) findViewById(R.id.btnTime);
+        final Button btnComment = (Button) findViewById(R.id.btnComment);
         // get the current time
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -138,6 +149,26 @@ public class MainActivity extends ActionBarActivity {
 
         // display the current time
         updateCurrentTime();
+        LoadItems();
+        //Create adapter
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, item);
+        txtStart.setThreshold(1);
+        //Set adapter to AutoCompleteTextView
+        txtStart.setAdapter(adapter);
+        txtStart.setOnItemSelectedListener(this);
+        txtStart.setOnItemClickListener(this);
+
+        //Set adapter to AutoCompleteTextView
+        txtEnd.setAdapter(adapter);
+        txtEnd.setOnItemSelectedListener(this);
+        txtEnd.setOnItemClickListener(this);
+        //Create adapter
+
+        //Set adapter to AutoCompleteTextView
+        txtAppoint.setAdapter(adapter);
+        txtAppoint.setOnItemSelectedListener(this);
+        txtAppoint.setOnItemClickListener(this);
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,9 +188,9 @@ public class MainActivity extends ActionBarActivity {
 
                 // find the radiobutton by returned id
                 type = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
-                if("มีรถ".equals(type)){
+                if ("มีรถ".equals(type)) {
                     type = "CAR";
-                }else{
+                } else {
                     type = "NOCAR";
                 }
                /* Toast.makeText(getBaseContext(),
@@ -172,11 +203,10 @@ public class MainActivity extends ActionBarActivity {
                 license_plate = txtLicensePlate.getText().toString();
 
 
-
                 if ("".equals(start) || "".equals(end) || "".equals(meeting_point) || "".equals(map_datetime) || "".equals(license_plate) || "".equals(txtTime.getText().toString().trim())) {
                     MessageDialog("กรุณากรอกข้อมูลให้ครบถ้วน");
                 } else {
-                    String url = getString(R.string.url)+"save.php";
+                    String url = getString(R.string.url) + "save.php";
                     List<NameValuePair> params = new ArrayList<NameValuePair>();
                     params.add(new BasicNameValuePair("user_id", user_id));
                     params.add(new BasicNameValuePair("start", start));
@@ -186,14 +216,14 @@ public class MainActivity extends ActionBarActivity {
                     params.add(new BasicNameValuePair("license_plate", license_plate));
                     params.add(new BasicNameValuePair("type", type));
 
-                    String resultServer  = getHttpPost(url,params);
+                    String resultServer = getHttpPost(url, params);
 
                     JSONObject c;
                     try {
                         c = new JSONObject(resultServer);
                         String status = c.getString("status");
                         MessageDialog(status);
-                        if("บันทึกสำเร็จ".equals(status)){
+                        if ("บันทึกสำเร็จ".equals(status)) {
                             ClearData();
                         }
                     } catch (JSONException e) {
@@ -247,7 +277,14 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
-
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), CommentActivity.class);
+                i.putExtra("user_id", user_id);
+                startActivity(i);
+            }
+        });
   /*      final Button btn5 = (Button) findViewById(R.id.button3);
         btn5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -265,11 +302,35 @@ public class MainActivity extends ActionBarActivity {
         //client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    private void LoadItems() {
+        String url = getString(R.string.url) + "word.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        //params.add(new BasicNameValuePair("user_id", user_id));
+        try {
+            JSONArray data = new JSONArray(getJSONUrl(url, params));
+            String txtType = "";
+
+            if (data.length() > 0) {
+                PostData data_add = null;
+                // listData = null;
+                item = new String[data.length()];
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject c = data.getJSONObject(i);
+                    String word = c.getString("word_text");
+                    item[i] = word;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void DialogMap() {
         View dialogBoxView = View.inflate(this, R.layout.activity_map, null);
-        final WebView map =(WebView)dialogBoxView.findViewById(R.id.webView);
+        final WebView map = (WebView) dialogBoxView.findViewById(R.id.webView);
 
-        String url = getString(R.string.url_map)+"index.php?poinFrom="+txtStart.getText().toString().trim()+"&poinTo="+txtEnd.getText().toString().trim();
+        String url = getString(R.string.url_map) + "index.php?poinFrom=" + txtStart.getText().toString().trim() + "&poinTo=" + txtEnd.getText().toString().trim();
 
         map.getSettings().setLoadsImagesAutomatically(true);
         map.getSettings().setJavaScriptEnabled(true);
@@ -350,9 +411,10 @@ public class MainActivity extends ActionBarActivity {
         return null;
     }
 
+
     // updates the time we display in the editText
     private void updateCurrentTime() {
-        datePoint =(mYear+"-"+mMonth+"-"+mDay+" "+mHour+":"+mMinute);
+        datePoint = (mYear + "-" + mMonth + "-" + mDay + " " + mHour + ":" + mMinute);
         //txtTime.setText(datePoint.toString());
         txtTime.setText(
                 new StringBuilder()
@@ -370,6 +432,65 @@ public class MainActivity extends ActionBarActivity {
                     updateCurrentTime();
                 }
             };
+
+
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position,
+                               long arg3) {
+        // TODO Auto-generated method stub
+        //Log.d("AutocompleteContacts", "onItemSelected() position " + position);
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+    }
+
+    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        // TODO Auto-generated method stub
+
+        // Show Alert
+        /*Toast.makeText(getBaseContext(), "Position:"+arg2+" Month:"+arg0.getItemAtPosition(arg2),
+                Toast.LENGTH_LONG).show();
+
+        Log.d("AutocompleteContacts", "Position:"+arg2+" Month:"+arg0.getItemAtPosition(arg2));*/
+
+    }
+
+    public String getJSONUrl(String url, List<NameValuePair> params) {
+        StringBuilder str = new StringBuilder();
+        HttpClient client = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+            HttpResponse response = client.execute(httpPost);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            if (statusCode == 200) { // Download OK
+                HttpEntity entity = response.getEntity();
+                InputStream content = entity.getContent();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(content));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    str.append(line);
+                }
+            } else {
+                Log.e("Log", "Failed to download file..");
+            }
+        } catch (ClientProtocolException e) {
+            e.getMessage();
+            e.getMessage();
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        return str.toString();
+    }
+
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {

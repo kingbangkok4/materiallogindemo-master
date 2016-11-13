@@ -27,7 +27,7 @@
         android:textColor="#fffefe" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/badge"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:textSize="12sp"

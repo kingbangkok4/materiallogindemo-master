@@ -15,6 +15,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:background="@color/common_signin_btn_default_background" />
 
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ชื่อผู้ขับ : "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
@@ -42,6 +49,7 @@
             android:id="@+id/txtRatingValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -49,10 +57,11 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText"
+        android:textColor="@color/black"
+        android:id="@+id/editTextDetail"
         android:layout_weight="0.28"
         android:layout_margin="20dp"
         android:background="@color/accent" />
@@ -61,7 +70,7 @@
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="ส่ง"
         android:background="@color/common_signin_btn_default_background"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />

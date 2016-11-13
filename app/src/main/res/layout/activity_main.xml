@@ -209,7 +209,7 @@
         android:text="License Plate"
         android:textColor="#040404" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/txtStart"
         android:layout_width="40dp"
         android:layout_height="30dp"
@@ -222,7 +222,7 @@
         android:background="#ffffff"
         android:textColor="#030303" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/txtEnd"
         android:layout_width="40dp"
         android:layout_height="30dp"
@@ -234,7 +234,7 @@
         android:background="#ffffff"
         android:textColor="#030303" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/txtAppoint"
         android:layout_width="40dp"
         android:layout_height="30dp"

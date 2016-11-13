@@ -37,10 +37,14 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private AddCommentActivity aComment = new AddCommentActivity();
 
-    @Bind(R.id.input_email) EditText _emailText;
-    @Bind(R.id.input_password) EditText _passwordText;
-    @Bind(R.id.btn_login) Button _loginButton;
+    @Bind(R.id.input_email)
+    EditText _emailText;
+    @Bind(R.id.input_password)
+    EditText _passwordText;
+    @Bind(R.id.btn_login)
+    Button _loginButton;
 
     String strStatusID = "0";
     String strMemberID = "0";
@@ -55,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
         ButterKnife.bind(this);
-        
+
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -104,36 +108,34 @@ public class LoginActivity extends AppCompatActivity {
                 }, 3000);
     }
 
-    public  boolean check(){
-        final EditText txtUser = (EditText)findViewById(R.id.input_email);
-            final EditText txtPass = (EditText)findViewById(R.id.input_password);
+    public boolean check() {
+        final EditText txtUser = (EditText) findViewById(R.id.input_email);
+        final EditText txtPass = (EditText) findViewById(R.id.input_password);
        /* String url = "http://172.19.43.65/joinway/checklogin.php";*/
-            String url = getString(R.string.url)+"checklogin.php";
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("strUser", txtUser.getText().toString()));
-            params.add(new BasicNameValuePair("strPass", txtPass.getText().toString()));
+        String url = getString(R.string.url) + "checklogin.php";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("strUser", txtUser.getText().toString()));
+        params.add(new BasicNameValuePair("strPass", txtPass.getText().toString()));
 
 
+        String resultServer = getHttpPost(url, params);
 
-            String resultServer  = getHttpPost(url,params);
 
-
-            JSONObject c;
-            try {
-                c = new JSONObject(resultServer);
-                strStatusID = c.getString("StatusID");
-                strMemberID = c.getString("user_id");
+        JSONObject c;
+        try {
+            c = new JSONObject(resultServer);
+            strStatusID = c.getString("StatusID");
+            strMemberID = c.getString("user_id");
             strError = c.getString("Error");
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if(strStatusID.equals("0")){
+        if (strStatusID.equals("0")) {
             Toast.makeText(getBaseContext(), strError, Toast.LENGTH_LONG).show();
             return false;
-        }
-        else {
+        } else {
             Toast.makeText(getBaseContext(), strMemberID, Toast.LENGTH_LONG).show();
             return true;
         }
@@ -160,10 +162,15 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        //Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        Intent i = new Intent(LoginActivity.this, AddCommentActivity.class);
-        i.putExtra("user_id", strMemberID);
-        startActivity(i);
+        if (aComment.checkComment(getString(R.string.url), strMemberID)) {
+            Intent i = new Intent(LoginActivity.this, AddCommentActivity.class);
+            i.putExtra("user_id", strMemberID);
+            startActivity(i);
+        } else {
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            i.putExtra("user_id", strMemberID);
+            startActivity(i);
+        }
     }
 
     public void onLoginFailed() {
@@ -194,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
-    public String getHttpPost(String url,List<NameValuePair> params) {
+    public String getHttpPost(String url, List<NameValuePair> params) {
         StringBuilder str = new StringBuilder();
         HttpClient client = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(url);

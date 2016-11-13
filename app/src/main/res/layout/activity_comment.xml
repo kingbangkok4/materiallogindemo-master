@@ -27,7 +27,7 @@
         android:textColor="#fffefe" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/badge"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:textSize="12sp"
@@ -37,6 +37,7 @@
         android:layout_alignBottom="@+id/btnComment"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/btnNotification"
+        android:layout_toStartOf="@+id/btnComment"
         android:layout_alignRight="@+id/textView3"
         android:layout_alignEnd="@+id/textView3" />
 

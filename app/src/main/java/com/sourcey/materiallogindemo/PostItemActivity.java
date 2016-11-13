@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.rssreader.adapter.PostItemAdapter;
 import com.rssreader.vo.PostData;
@@ -49,6 +50,9 @@ public class PostItemActivity extends Activity {
     private String type = "CAR";
     private String strStart = "";
     private String strEnd = "";
+    private MasterActivity master = new MasterActivity();
+    private  int notifications = 0;
+    TextView badge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +74,14 @@ public class PostItemActivity extends Activity {
         final Button btnPost = (Button) findViewById(R.id.btnPost);
        // final Button btnFeed = (Button) findViewById(R.id.btnFeed);
         final Button btnNotification = (Button) findViewById(R.id.btnNotification);
+        final Button btnComment = (Button) findViewById(R.id.btnComment);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
         radioGroup = (RadioGroup) findViewById(R.id.radio);
         listView = (ListView) this.findViewById(R.id.postListView);
+        badge = (TextView) findViewById(R.id.badge);
 
         this.generateDummyData();
+        this.ConutNotification();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -125,9 +132,26 @@ public class PostItemActivity extends Activity {
                 startActivity(i);
             }
         });
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), CommentActivity.class);
+                i.putExtra("user_id", user_id);
+                startActivity(i);
+            }
+        });
     }
 
-
+    private void ConutNotification() {
+        String url = getString(R.string.url) + "notification.php";
+        notifications = master.GetCountNotification(user_id, url);
+        if (notifications > 0) {
+            badge.setVisibility(View.VISIBLE);
+            badge.setText(String.valueOf(notifications));
+        } else {
+            badge.setVisibility(View.GONE);
+        }
+    }
     /* @Override
      public boolean onCreateOptionsMenu(Menu menu) {
          // Inflate the menu; this adds items to the action bar if it is present.

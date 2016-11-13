@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.rssreader.adapter.PostItemAdapter;
@@ -37,29 +40,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-
 /**
- * Created by PC on 10/27/2016.
+ * Created by Administrator on 11/13/2016.
  */
 
-public class NotificationActivity extends Activity {
-    private PostData[] listData;
+public class CommentActivity extends Activity {
     private String user_id = "";
-    private RadioGroup radioGroup;
-    ListView listView;
-    private String type = "CAR";
+    private ListView listView;
     private MasterActivity master = new MasterActivity();
     private  int notifications = 0;
     TextView badge;
-    //private String strStart = "";
-    //private String strEnd = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nontification);
+        setContentView(R.layout.activity_comment);
 
         // Permission StrictMode
         if (Build.VERSION.SDK_INT > 9) {
@@ -74,52 +72,26 @@ public class NotificationActivity extends Activity {
             user_id = extras.getString("user_id");
         }
 
-        final Button btnPost = (Button) findViewById(R.id.btnPost);
-        final Button btnFeed = (Button) findViewById(R.id.btnFeed);
+        final Button btnNotification = (Button) findViewById(R.id.btnNotification);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
-        final Button btnComment = (Button) findViewById(R.id.btnComment);
         listView = (ListView) this.findViewById(R.id.postListView);
         badge = (TextView) findViewById(R.id.badge);
 
-        this.generateDummyData();
-        this.ConutNotification();
+        this.LoadData();
+       this.ConutNotification();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       btnNotification.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String request_id = listData[position].request_id;
-                DialogConfirmRequest(request_id);
-            }
-        });
-
-        btnPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                Intent i = new Intent(getBaseContext(), NotificationActivity.class);
                 i.putExtra("user_id", user_id);
                 startActivity(i);
-
-            }
-        });
-        btnFeed.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), PostItemActivity.class);
-                i.putExtra("user_id", user_id);
-                startActivity(i);
-
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), LoginActivity.class);
-                startActivity(i);
-            }
-        });
-        btnComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), CommentActivity.class);
-                i.putExtra("user_id", user_id);
                 startActivity(i);
             }
         });
@@ -136,113 +108,73 @@ public class NotificationActivity extends Activity {
         }
     }
 
-    private void DialogConfirmRequest(final String request_id) {
-        View dialogBoxView = View.inflate(this, R.layout.dialog_confirm_request, null);
-        final Button btnAccept = (Button) dialogBoxView.findViewById(R.id.btnAccept);
-        final Button btnReject = (Button) dialogBoxView.findViewById(R.id.btnReject);
-
-        btnAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveConfirm(request_id, "ACCEPT");
-            }
-        });
-        btnReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveConfirm(request_id, "REJECT");
-            }
-        });
-       /* String url = getString(R.string.url_map)+"index.php?poinFrom="+txtStart.getText().toString().trim()+"&poinTo="+txtEnd.getText().toString().trim();
-
-        map.getSettings().setLoadsImagesAutomatically(true);
-        map.getSettings().setJavaScriptEnabled(true);
-        map.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        map.loadUrl(url);*/
-
-        AlertDialog.Builder builderInOut = new AlertDialog.Builder(this);
-        builderInOut.setTitle("ตอบรับการร้องขอมา");
-        builderInOut.setMessage("")
-                .setView(dialogBoxView)
-                .setCancelable(false)
-                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                })
-                .show();
-    }
-
-    private void saveConfirm(String request_id, String action) {
-        String url = getString(R.string.url) + "comfirmRequest.php";
-
-        // Paste Parameters
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("request_id", request_id));
-        params.add(new BasicNameValuePair("action", action));
-        String resultServer  = getHttpPost(url,params);
-
-        JSONObject c;
-        try {
-            c = new JSONObject(resultServer);
-            String status = c.getString("status");
-            MessageDialog(status);
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            MessageDialog(e.getMessage());
-        }
-
-        this.ConutNotification();
-    }
-
-    private void generateDummyData() {
-        String url = getString(R.string.url) + "notification.php";
+    private void LoadData() {
+        String url = getString(R.string.url) + "comment.php";
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("user_id", user_id));
         try {
             JSONArray data = new JSONArray(getJSONUrl(url, params));
-            String txtType = "";
+            final ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+            HashMap<String, String> map;
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject c = data.getJSONObject(i);
 
-            if (data.length() > 0) {
-                PostData data_add = null;
-                // listData = null;
-                listData = new PostData[data.length()];
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject c = data.getJSONObject(i);
+                map = new HashMap<String, String>();
+                map.put("name", c.getString("name"));
+                map.put("rating", c.getString("rating"));
+                map.put("detail", c.getString("detail"));
+                map.put("comment_datetime", c.getString("comment_datetime"));
+                MyArrList.add(map);
 
-                    if ("CAR".equals(c.getString("type"))) {
-                        txtType = "ผู้โดยสาร";
-                    } else if ("NOCAR".equals(c.getString("type"))) {
-                        txtType = "ผู้ขับ";
-                    }
-
-                    data_add = new PostData();
-                    data_add.request_id = c.getString("request_id");
-                    data_add.postMapID = c.getString("map_id");
-                    data_add.m_user_id = c.getString("m_user_id");
-                    data_add.r_user_id = c.getString("r_user_id");
-                    data_add.type = c.getString("type");
-                    data_add.postName = "ชื่อ" + txtType + ": " + c.getString("firstname") + " " + c.getString("lastname");
-                    data_add.postStart = "ต้นทาง: " + c.getString("start");
-                    data_add.postEnd = "ปลายทาง: " + c.getString("end");
-                    data_add.postPoint = "จุดนัดพบ: " + c.getString("meeting_point");
-                    data_add.postTime = "วัน-เวลา: " + c.getString("map_datetime") + " น.";
-                    data_add.postLicensePlate = "ทะเบียน: " + c.getString("license_plate");
-                    data_add.postThumbUrl = null;
-                    listData[i] = data_add;
-                }
-                PostItemAdapter itemAdapter = new PostItemAdapter(this,
-                        R.layout.postitem, listData);
-                listView.setAdapter(itemAdapter);
-            } else {
-                listView.setAdapter(null);
             }
-            this.ConutNotification();
+
+            SimpleAdapter sAdap;
+            sAdap = new SimpleAdapter(getBaseContext(), MyArrList, R.layout.activity_comment_column,
+                    new String[]{"name", "comment_datetime"}, new int[]{R.id.ColName, R.id.ColDate});
+            listView.setAdapter(sAdap);
+
+            final AlertDialog.Builder viewDetail = new AlertDialog.Builder(this);
+            // OnClick Item
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> myAdapter, View myView,
+                                        int position, long mylng) {
+
+                    String name = MyArrList.get(position).get("name")
+                            .toString();
+                    String rating = MyArrList.get(position).get("rating")
+                            .toString();
+                    String detail = MyArrList.get(position).get("detail")
+                            .toString();
+                    String comment_datetime = MyArrList.get(position).get("comment_datetime")
+                            .toString();
+
+                    viewDetail.setIcon(android.R.drawable.btn_star_big_on);
+                    viewDetail.setTitle("รายละเอียด Comment");
+                    viewDetail.setMessage("ชื่อผู้ Comment : " + name + "\n"
+                            + "rating : " + rating + "\n"
+                            + "รายละเอียด : " + detail + "\n"
+                            + "วันที่-เวลา : " + comment_datetime + "\n");
+                    viewDetail.setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    // TODO Auto-generated method stub
+                                    dialog.dismiss();
+                                }
+                            });
+                    viewDetail.show();
+
+                }
+            });
+
+
         } catch (JSONException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
+
 
     public String getHttpPost(String url, List<NameValuePair> params) {
         StringBuilder str = new StringBuilder();
@@ -296,7 +228,6 @@ public class NotificationActivity extends Activity {
                 Log.e("Log", "Failed to download file..");
             }
         } catch (ClientProtocolException e) {
-            e.getMessage();
             e.getMessage();
         } catch (IOException e) {
             e.getMessage();
