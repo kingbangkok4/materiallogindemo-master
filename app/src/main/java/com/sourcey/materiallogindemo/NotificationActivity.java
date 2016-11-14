@@ -55,6 +55,10 @@ public class NotificationActivity extends Activity {
     TextView badge;
     //private String strStart = "";
     //private String strEnd = "";
+    String request_id = "";
+    String map_id = "";
+    String r_user_id = "";
+    String r_type  = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +91,11 @@ public class NotificationActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String request_id = listData[position].request_id;
-                DialogConfirmRequest(request_id);
+                request_id = listData[position].request_id;
+                map_id = listData[position].postMapID;
+                r_user_id = listData[position].r_user_id;
+                r_type  = listData[position].type;
+                DialogConfirmRequest();
             }
         });
 
@@ -136,7 +143,7 @@ public class NotificationActivity extends Activity {
         }
     }
 
-    private void DialogConfirmRequest(final String request_id) {
+    private void DialogConfirmRequest() {
         View dialogBoxView = View.inflate(this, R.layout.dialog_confirm_request, null);
         final Button btnAccept = (Button) dialogBoxView.findViewById(R.id.btnAccept);
         final Button btnReject = (Button) dialogBoxView.findViewById(R.id.btnReject);
@@ -174,12 +181,18 @@ public class NotificationActivity extends Activity {
     }
 
     private void saveConfirm(String request_id, String action) {
-        String url = getString(R.string.url) + "comfirmRequest.php";
+        String url = getString(R.string.url) + "match.php";
 
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("request_id", request_id));
         params.add(new BasicNameValuePair("action", action));
+        params.add(new BasicNameValuePair("map_id", map_id));
+        if("NOCAR".equals(type)){
+            params.add(new BasicNameValuePair("passenger", r_user_id));
+        }else {
+            params.add(new BasicNameValuePair("passenger", user_id));
+        }
         String resultServer  = getHttpPost(url,params);
 
         JSONObject c;
@@ -187,6 +200,7 @@ public class NotificationActivity extends Activity {
             c = new JSONObject(resultServer);
             String status = c.getString("status");
             MessageDialog(status);
+            generateDummyData();
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             MessageDialog(e.getMessage());

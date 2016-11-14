@@ -223,6 +223,8 @@ public class PostItemActivity extends Activity {
             // TODO Auto-generated catch block
             MessageDialog(e.getMessage());
         }
+
+        this.ConutNotification();
     }
 
     private void DialogRequest(final String map_id, final String passenger) {
