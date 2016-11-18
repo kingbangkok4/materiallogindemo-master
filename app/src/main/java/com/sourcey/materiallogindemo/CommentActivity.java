@@ -55,14 +55,14 @@ public class CommentActivity extends Activity {
     TextView badge;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_comment);
 
-        // Permission StrictMode
-        if (Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
+                // Permission StrictMode
+                if (Build.VERSION.SDK_INT > 9) {
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                            .permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
@@ -72,6 +72,8 @@ public class CommentActivity extends Activity {
             user_id = extras.getString("user_id");
         }
 
+        final Button btnPost = (Button) findViewById(R.id.btnPost);
+        final Button btnFeed = (Button) findViewById(R.id.btnFeed);
         final Button btnNotification = (Button) findViewById(R.id.btnNotification);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
         listView = (ListView) this.findViewById(R.id.postListView);
@@ -93,6 +95,22 @@ public class CommentActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(i);
+            }
+        });
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                i.putExtra("user_id", user_id);
+                startActivity(i);
+
+            }
+        });
+        btnFeed.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), PostItemActivity.class);
+                i.putExtra("user_id", user_id);
+                startActivity(i);
+
             }
         });
     }

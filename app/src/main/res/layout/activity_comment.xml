@@ -103,14 +103,6 @@
 
     </RadioGroup>
 
-    <ListView
-        android:id="@+id/postListView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/radio" />
-
     <Button
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -118,5 +110,54 @@
         android:background="@drawable/setting"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnPost"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/post"
+        android:layout_below="@+id/textView"
+        android:layout_toLeftOf="@+id/textView13"
+        android:layout_toStartOf="@+id/textView13" />
+
+    <Button
+        android:id="@+id/btnFeed"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/feed"
+        android:layout_below="@+id/textView"
+        android:layout_toLeftOf="@+id/textView11"
+        android:layout_toStartOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feed"
+        android:textColor="#040404"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/btnFeed"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post"
+        android:textColor="#040404"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/btnPost"
+        android:layout_toLeftOf="@+id/textView4"
+        android:layout_toStartOf="@+id/textView4" />
+
+    <ListView
+        android:id="@+id/postListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnPost" />
 </RelativeLayout>
 

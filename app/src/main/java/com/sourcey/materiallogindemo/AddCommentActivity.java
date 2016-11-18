@@ -99,13 +99,13 @@ public class AddCommentActivity extends Activity {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
 
-                txtRatingValue.setText(String.valueOf(rating));
+        txtRatingValue.setText(String.valueOf(rating));
 
-            }
-        });
     }
+});
+        }
 
-    public void addListenerOnButton() {
+public void addListenerOnButton() {
 
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
@@ -188,7 +188,7 @@ public class AddCommentActivity extends Activity {
         HttpPost httpPost = new HttpPost(url);
 
         try {
-            httpPost.setEntity(new UrlEncodedFormEntity(params));
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
             HttpResponse response = client.execute(httpPost);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
