@@ -52,6 +52,8 @@ public class AddCommentActivity extends Activity {
     private String match_id = "";
     private String firstname = "";
     private String lastname = "";
+    String name = "";
+    String image = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,8 @@ public class AddCommentActivity extends Activity {
         // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
         if (extras != null) {
             user_id = extras.getString("user_id");
+            name = extras.getString("name");
+            image = extras.getString("image");
         }
 
         addListenerOnRatingBar();
@@ -80,6 +84,8 @@ public class AddCommentActivity extends Activity {
         }else {
             Intent i = new Intent(getBaseContext(), MainActivity.class);
             i.putExtra("user_id", user_id);
+            i.putExtra("name", name);
+            i.putExtra("image", image);
             startActivity(i);
         }
 

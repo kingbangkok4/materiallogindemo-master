@@ -61,7 +61,7 @@
     <TextView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/textView8"
+        android:id="@+id/btnImageProfile"
         android:background="@drawable/user"
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView3"
@@ -75,8 +75,8 @@
         android:background="@drawable/nat"
         android:focusableInTouchMode="false"
         android:layout_alignTop="@+id/btnComment"
-        android:layout_alignRight="@+id/textView8"
-        android:layout_alignEnd="@+id/textView8" />
+        android:layout_alignRight="@+id/btnImageProfile"
+        android:layout_alignEnd="@+id/btnImageProfile" />
 
     <Button
         android:layout_width="35dp"
@@ -99,11 +99,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ชื่อ - นามสกุล"
-        android:id="@+id/textView9"
+        android:id="@+id/txtName"
         android:textStyle="bold"
         android:textColor="#040404"
         android:layout_marginBottom="20dp"
-        android:layout_alignBottom="@+id/textView8"
+        android:layout_alignBottom="@+id/btnImageProfile"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -112,9 +112,9 @@
         android:id="@+id/textView49"
         android:background="@drawable/user"
         android:layout_marginTop="39dp"
-        android:layout_below="@+id/textView9"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8" />
+        android:layout_below="@+id/txtName"
+        android:layout_toRightOf="@+id/btnImageProfile"
+        android:layout_toEndOf="@+id/btnImageProfile" />
 
     <TextView
         android:layout_width="wrap_content"

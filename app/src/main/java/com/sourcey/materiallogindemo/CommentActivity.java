@@ -53,6 +53,8 @@ public class CommentActivity extends Activity {
     private MasterActivity master = new MasterActivity();
     private  int notifications = 0;
     TextView badge;
+    String name = "";
+    String image = "";
 
     @Override
             protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class CommentActivity extends Activity {
         // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
         if (extras != null) {
             user_id = extras.getString("user_id");
+            name = extras.getString("name");
+            image = extras.getString("image");
         }
 
         final Button btnPost = (Button) findViewById(R.id.btnPost);
@@ -87,6 +91,8 @@ public class CommentActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), NotificationActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
             }
         });
@@ -101,6 +107,8 @@ public class CommentActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
 
             }
@@ -109,6 +117,8 @@ public class CommentActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), PostItemActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
 
             }

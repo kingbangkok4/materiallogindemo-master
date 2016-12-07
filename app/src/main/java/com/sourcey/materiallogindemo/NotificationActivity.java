@@ -59,6 +59,8 @@ public class NotificationActivity extends Activity {
     String map_id = "";
     String r_user_id = "";
     String r_type  = "";
+    String name = "";
+    String image = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,8 @@ public class NotificationActivity extends Activity {
         // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
         if (extras != null) {
             user_id = extras.getString("user_id");
+            name = extras.getString("name");
+            image = extras.getString("image");
         }
 
         final Button btnPost = (Button) findViewById(R.id.btnPost);
@@ -103,6 +107,8 @@ public class NotificationActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
 
             }
@@ -111,6 +117,8 @@ public class NotificationActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), PostItemActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
 
             }
@@ -127,6 +135,8 @@ public class NotificationActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), CommentActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
             }
         });

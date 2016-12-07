@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -19,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -47,6 +50,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,6 +72,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private EditText txtLicensePlate;
     private RadioGroup radioGroup;
     private TextView badge;
+    private ImageButton btnImageProfile;
+    private TextView txtName;
 
     private String user_id = "";
     private String meeting_point = "";
@@ -85,6 +92,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private int notifications = 0;
     private ArrayAdapter<String> adapter;
     String item[];
+    String name = "";
+    String image = "";
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -108,6 +117,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
         if (extras != null) {
             user_id = extras.getString("user_id");
+            name = extras.getString("name");
+            image = extras.getString("image");
         }
 
         txtStart = (AutoCompleteTextView) findViewById(R.id.txtStart);
@@ -115,6 +126,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         txtAppoint = (AutoCompleteTextView) findViewById(R.id.txtAppoint);
         txtTime = (EditText) findViewById(R.id.txtTime);
         txtLicensePlate = (EditText) findViewById(R.id.txtLicensePlate);
+        btnImageProfile = (ImageButton)findViewById(R.id.btnImageProfile);
+        txtName = (TextView)findViewById(R.id.txtName);
 
         radioGroup = (RadioGroup) findViewById(R.id.radio);
 
@@ -168,6 +181,22 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         txtAppoint.setAdapter(adapter);
         txtAppoint.setOnItemSelectedListener(this);
         txtAppoint.setOnItemClickListener(this);
+
+        txtName.setText(name);
+        String photo_url_str = getString(R.string.url_image)+(("".equals(image.trim())||image == null)?"no.png":image.trim());
+        URL newurl = null;
+        try {
+            newurl = new URL(photo_url_str);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Bitmap b = null;
+        try {
+            b = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        btnImageProfile.setImageBitmap(Bitmap.createScaledBitmap(b, 80, 80, false));
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,6 +288,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 }*/
                 Intent i = new Intent(getBaseContext(), PostItemActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
             }
         });
@@ -267,6 +298,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), NotificationActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
             }
         });
@@ -282,6 +315,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), CommentActivity.class);
                 i.putExtra("user_id", user_id);
+                i.putExtra("name", name);
+                i.putExtra("image", image);
                 startActivity(i);
             }
         });

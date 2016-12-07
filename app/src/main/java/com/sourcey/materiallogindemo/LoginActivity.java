@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
 
     String strStatusID = "0";
     String strMemberID = "0";
+    String name = "";
+    String image = "";
     String strError = "Unknow Status!";
 
     @Override
@@ -126,6 +128,8 @@ public class LoginActivity extends AppCompatActivity {
             c = new JSONObject(resultServer);
             strStatusID = c.getString("StatusID");
             strMemberID = c.getString("user_id");
+            name = c.getString("name");
+            image = c.getString("image");
             strError = c.getString("Error");
 
         } catch (JSONException e) {
@@ -165,10 +169,14 @@ public class LoginActivity extends AppCompatActivity {
         if (aComment.checkComment(getString(R.string.url), strMemberID)) {
             Intent i = new Intent(LoginActivity.this, AddCommentActivity.class);
             i.putExtra("user_id", strMemberID);
+            i.putExtra("name", name);
+            i.putExtra("image", image);
             startActivity(i);
         } else {
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             i.putExtra("user_id", strMemberID);
+            i.putExtra("name", name);
+            i.putExtra("image", image);
             startActivity(i);
         }
     }
